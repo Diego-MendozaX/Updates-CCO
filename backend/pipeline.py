@@ -1,4 +1,5 @@
 import argparse
+import base64
 from collections import Counter
 from datetime import date, datetime, timedelta, timezone
 import hashlib
@@ -27,7 +28,7 @@ def write_atomic(path, content):
     os.replace(temp, path)
 
 
-def acquire(day):
+def acquire(day, include_supplements=False):
     now = datetime.now(PERU).isoformat()
     report = synchronize(day)
     report.update(day=day, checked_at=now, normalized=[], normalization_errors=[])
@@ -60,6 +61,12 @@ def acquire(day):
         if before not in expected:
             gaps.append({"code": code, "previous": before})
     report["sequence_gaps"] = gaps
+    if include_supplements and report["results"]:
+        from .supplements import update
+        supplemental = update(day, report["discovered"])
+        report["supplemental_files"] = len(supplemental["files"])
+        report["supplemental_errors"] = supplemental["errors"]
+        report["complete"] = report["complete"] and not supplemental["errors"]
     with store.connection() as db:
         schema(db)
         db.execute("INSERT INTO acquisition_runs(day,checked_at,report) VALUES(?,?,?)", (day, now, json.dumps(report, ensure_ascii=False)))
@@ -125,7 +132,46 @@ def excel_export(data):
                 raw_time, source_row = original_times[(s["key"], i)]
                 points.append([v["id"],v["day"],v["code"],v["current"],s["key"],i+1,SLOTS[i],raw_time,s["sheet"],s["column"]+str(source_row) if source_row else None,s["values"][i],s["texts"][i],s["unit"],source_row > 0 and s["values"][i] is None and s["texts"][i] is None,source_row > 0])
     for r in data["runs"]:
-        runs.append([r["day"],r["checked_at"],r["listing_verified"],len(r["discovered"]),len(r["results"]),r["complete"],json.dumps(r["errors"]+r.get("normalization_errors",[]),ensure_ascii=False)])
+        runs.append([r["day"],r["checked_at"],r["listing_verified"],len(r["discovered"]),len(r["results"]),r["complete"],json.dumps(r["errors"]+r.get("normalization_errors",[])+r.get("supplemental_errors",[]),ensure_ascii=False)])
+    if data.get("supplements"):
+        annexes = w.create_sheet("Anexos")
+        annexes.append(["fecha", "tipo", "version_fuente", "archivo", "ruta_relativa", "sha256", "consultado_hora_Peru", "leido", "url"])
+        tables = {}
+
+        def rows(sheet, day, code, records, source):
+            for record in records:
+                if sheet not in tables:
+                    fields = list(record)
+                    table = w.create_sheet(sheet)
+                    table.append(["fecha", "version_fuente", "sha256_fuente", *fields])
+                    tables[sheet] = (table, fields)
+                table, fields = tables[sheet]
+                table.append([day, code, source["digest"], *[record.get(k) for k in fields]])
+
+        for day, extra in sorted(data["supplements"].items()):
+            for f in extra.get("files", []):
+                annexes.append([day, f["kind"], f["code"], f["filename"], f["file"], f["digest"], f.get("checked_at"), f.get("parsed"), f["url"]])
+            for kind, bundle in extra.get("daily", {}).items():
+                source, records = bundle["source"], bundle["data"]
+                if kind == "hydrology":
+                    rows("Hidrologia_Embalses", day, source["code"], records["reservoirs"], source)
+                    rows("Hidrologia_Centrales", day, source["code"], records["plants"], source)
+                    rows("Hidrologia_INKIA", day, source["code"], records.get("inkia_plants", []), source)
+                elif kind == "electrical":
+                    rows("Analisis_Electrico", day, source["code"], records["loadings"], source)
+                else:
+                    sheet = {"maintenance": "Intervenciones", "restrictions": "Restricciones", "links": "RPF", "delegations": "RPF"}[kind]
+                    rows(sheet, day, source["code"], records, source)
+            for code, bundle in extra.get("reserves", {}).items():
+                records = ({"URS": u["urs"], "nombre": u["name"], "empresa": u["company"], "hora": SLOTS[i], "UP_MW": u["up"][i], "DOWN_MW": u["down"][i]}
+                           for u in bundle["units"] for i in range(48))
+                rows("RSF", day, code, records, bundle["source"])
+        classification = w.create_sheet("Clasificacion")
+        classification.append(["fecha", "version", "serie_id", "nombre_COES", "central", "empresa", "tecnologia", "categoria", "potencia_referencia_MW", "origen_clasificacion", "incluir_total_COES"])
+        for v in data["versions"]:
+            for s in v["series"]:
+                if s["role"] in ("dispatch", "renewables", "cogeneration"):
+                    classification.append([v["day"], v["code"], s["key"], s["name"], s["plant"], s["company"], s["technology"], s["category"], s["capacity"], s["classification_basis"], s["generation"]])
     temp = store.DATA / "base_excel.tmp.xlsx"
     w.save(temp)
     os.replace(temp, store.DATA / "base_excel.xlsx")
@@ -133,12 +179,22 @@ def excel_export(data):
 
 def export():
     data = snapshot()
+    from .dashboard import enrich
+    data = enrich(data)
     excel_export(data)
     manifest = {"generated_at": data["generated_at"], "runs": data["runs"], "versions": [{k:v for k,v in r.items() if k != "series"} for r in data["versions"]]}
+    manifest["report"] = data["report"]
+    manifest["annexes"] = {day: {"files": x.get("files", []), "errors": x.get("errors", [])} for day, x in data["supplements"].items()}
     write_atomic(store.DATA / "manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2))
     template = (Path(__file__).parent / "templates" / "base.html").read_text(encoding="utf-8")
     embedded = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
-    write_atomic(store.DATA / "index.html", template.replace("__CCO_DATA__", embedded))
+    assets=Path(__file__).parent/'assets'
+    replacements={"__CCO_DATA__":embedded,"__CCO_CSS__":(assets/'dashboard.css').read_text(encoding='utf-8'),
+                  "__CCO_JS__":(assets/'dashboard.js').read_text(encoding='utf-8').replace('</script','<\\/script'),
+                  "__CHART_JS__":(assets/'chart.umd.min.js').read_text(encoding='utf-8').replace('</script','<\\/script'),
+                  "__KALLPA_LOGO__":base64.b64encode((assets/'kallpa-icon.png').read_bytes()).decode('ascii')}
+    for placeholder,content in replacements.items():template=template.replace(placeholder,content)
+    write_atomic(store.DATA / "index.html", template)
     return data
 
 
@@ -166,6 +222,8 @@ def main(argv=None):
     parser.add_argument("--hasta", help="Último día de un rango incluido; por defecto hoy")
     parser.add_argument("--base", type=Path, default=ROOT / "base_coes", help="Carpeta persistente de salida")
     parser.add_argument("--sin-descargar", action="store_true", help="Regenera Excel/HTML usando solo la base archivada")
+    parser.add_argument("--solo-despacho", action="store_true", help="Omite la consulta de anexos complementarios")
+    parser.add_argument("--no-abrir", action="store_true", help="Genera la página sin abrir el navegador (servidores/ejecución programada)")
     args = parser.parse_args(argv)
     try:
         days = parse_days(args, datetime.now(PERU).date())
@@ -187,11 +245,15 @@ def main(argv=None):
         if not args.sin_descargar:
             for day in days:
                 print(f"Consultando COES: {day}…", flush=True)
-                report = acquire(day)
+                report = acquire(day, include_supplements=not args.solo_despacho)
                 reports.append(report)
                 print(f"  Listado {'verificado' if report['listing_verified'] else 'NO verificado'} · {len(report['discovered'])} reprogramas · {len(report['results'])} Excel · {len(report['normalized'])} normalizados", flush=True)
                 for e in report["errors"] + report["normalization_errors"]:
                     print(f"  {e['code']}: {e['message']}", file=sys.stderr, flush=True)
+                if "supplemental_files" in report:
+                    print(f"  {report['supplemental_files']} anexos complementarios archivados",flush=True)
+                    for e in report.get("supplemental_errors",[]):
+                        print(f"  {e['code']}: {e['message']}",file=sys.stderr,flush=True)
         data = export()
         print(f"HTML: {store.DATA / 'index.html'}\nExcel: {store.DATA / 'base_excel.xlsx'}\nSQLite: {store.DATA / 'archive.sqlite3'}", flush=True)
         print(f"{len(data['versions'])} originales/revisiones conservados. Recarga el HTML para ver el resultado; también se relee cada 60 segundos.")
@@ -200,5 +262,18 @@ def main(argv=None):
         lock.unlink(missing_ok=True)
 
 
+def run():
+    result=main()
+    html=store.DATA/'index.html'
+    if '--no-abrir' not in sys.argv and html.is_file():
+        import webbrowser
+        try:
+            opened=webbrowser.open(html.resolve().as_uri())
+        except (webbrowser.Error,OSError):opened=False
+        if not opened:print(f"No se pudo abrir el navegador automáticamente. Abre este archivo: {html.resolve()}",flush=True)
+    return result
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    code=run()
+    if code:raise SystemExit(code)

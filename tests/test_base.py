@@ -75,7 +75,9 @@ class BaseTests(unittest.TestCase):
         self.assertEqual(read_series(identifier)[0]['first_interval_index'],41)
 
     def test_pipeline_creates_portable_outputs_and_exact_cells(self):
-        def fetch(url):return listing(codes=('A','B')) if 'Listado' in url else annex(start=7 if '0311B' in url else 0)
+        # Use identical bytes: generating a new XLSX also changes ZIP timestamps.
+        listing_raw, full_raw, partial_raw = listing(codes=('A','B')), annex(), annex(start=7)
+        def fetch(url):return listing_raw if 'Listado' in url else partial_raw if '0311B' in url else full_raw
         with patch('backend.coes.fetch',side_effect=fetch):
             r=acquire('2026-11-03');self.assertTrue(r['complete'])
             r2=acquire('2026-11-03');self.assertFalse(any(v['created'] for v in r2['results']))

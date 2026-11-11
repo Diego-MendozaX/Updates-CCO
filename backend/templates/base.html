@@ -1,45 +1,164 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CCO · Base de programas COES</title>
-<style>
-:root{font:14px system-ui,-apple-system,"Segoe UI",sans-serif;color:#24434b;background:#f4f7f7;--teal:#117e70;--muted:#778d94;--line:#e2eaea}*{box-sizing:border-box}body{margin:0}button,select,input{font:inherit}button,a,select,input{outline-offset:4px}button,a{cursor:pointer}a{text-decoration:none;color:var(--teal)}button{border:0}header{background:#102e39;color:#dcebea;padding:19px max(24px,calc((100% - 1240px)/2));display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-size:23px;font-weight:750;letter-spacing:2px;display:flex;align-items:center;gap:12px}.brand b{color:#66d1b9;font-size:26px}.brand small{font-size:9px;letter-spacing:1.7px;font-weight:400;color:#92b1bb;display:block;margin-top:4px}.header-right{font-size:11px;color:#9cbdc5}main{max-width:1290px;margin:auto;padding:36px 25px 20px}.eyebrow{font-size:10px;letter-spacing:2px;color:#71938c;font-weight:700;margin-bottom:9px}h1{margin:0;font-size:32px;letter-spacing:-1px;color:#1d3a45;font-weight:650}h1 span{color:var(--teal)}.intro{color:var(--muted);font-size:13px;line-height:1.8;margin:10px 0 0}.heading{display:flex;justify-content:space-between;align-items:center;gap:25px;margin-bottom:22px}.actions{display:flex;gap:9px;flex-shrink:0}.button{display:inline-flex;align-items:center;gap:7px;background:var(--teal);color:#fff;padding:11px 14px;border-radius:6px;font-size:12px;font-weight:550;white-space:nowrap}.button.secondary{color:#54747c;background:white;border:1px solid #d7e3e4}.update{border:1px solid #d4e5df;background:#ecf5f0;border-radius:7px;padding:13px 17px;display:flex;align-items:center;gap:9px;color:#648578;font-size:11px;line-height:1.7;margin-bottom:23px}.update strong{color:#467466}.update>label{margin-left:auto;display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:10px}.update input{accent-color:var(--teal)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}.stat{background:#fff;border:1px solid var(--line);border-radius:7px;padding:18px 20px}.stat label{color:#84999f;font-size:11px;display:block}.stat strong{font-size:29px;font-weight:650;display:block;margin:9px 0 7px;font-variant-numeric:tabular-nums;letter-spacing:-.7px}.stat small{font-size:10px;color:#93a5ab}.selectors{padding:19px 20px;background:#fff;border:1px solid var(--line);border-radius:7px;display:flex;align-items:center;gap:24px;margin-bottom:22px}.field-label{font-size:9px;letter-spacing:1.1px;color:#92a5aa;font-weight:650;display:block;margin-bottom:9px}select{padding:8px 11px;border:1px solid #d9e4e5;color:#3d616b;border-radius:4px;background:#fff;max-width:100%;font-size:12px}.track{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid #dce6e7;background:#f8fafb;color:#80969c;padding:7px 13px;font-size:11px;border-radius:4px}.chip.active{background:#edf7f2;border-color:#99cabc;color:#217864;font-weight:650}.sequence{flex:1}.status{font-size:10px;padding:5px 8px;display:inline-block;color:#45876c;background:#eff7f2;border-radius:4px;white-space:nowrap}.status.amber{background:#fcf4e6;color:#aa894e}.context{font-size:11px;color:#9aaab0;line-height:1.7;margin-top:9px}.panel{border:1px solid var(--line);border-radius:8px;background:white;overflow:hidden;margin-bottom:22px}.panel-head{display:flex;justify-content:space-between;align-items:center;padding:22px 23px 16px;gap:20px}.panel-head h2{font-size:15px;font-weight:600;color:#375d69;margin:0}.panel-head p{font-size:11px;color:#94a6ae;line-height:1.7;margin:7px 0 0}.series-select{max-width:330px;min-width:220px}.comparison-meta{display:flex;gap:16px;padding:0 23px 16px;align-items:center;flex-wrap:wrap;font-size:11px;color:#94a5ad}.comparison-meta .pill{background:#f2f6f7;padding:6px 9px;border-radius:4px;color:#739088}.plot-wrap{padding:0 20px;position:relative}svg{width:100%;display:block;max-height:300px;touch-action:pan-y}.legend{display:flex;gap:20px;align-items:center;font-size:10px;color:#8da0a7;padding:0 25px 4px;justify-content:flex-end}.legend span{display:flex;gap:7px;align-items:center}.legend i{width:19px;border-top:2px solid #168c78}.legend i.old{border-top:2px dashed #97a8b3}.interval-slider{padding:5px 25px 0;display:flex;gap:13px;align-items:center;font-size:11px;color:#829ba2}.interval-slider input{width:100%;accent-color:var(--teal)}.interval-slider output{white-space:nowrap;font-size:12px;font-weight:600;color:#5a7b80;min-width:45px}.inspector{padding:17px 25px 19px;display:flex;align-items:center;gap:25px;flex-wrap:wrap;border-bottom:1px solid #edf2f3}.inspector>div{padding-right:25px;border-right:1px solid var(--line);min-width:130px}.inspector label{display:block;color:#91a4ad;font-size:10px;margin-bottom:7px}.inspector strong{font-size:19px;font-weight:600;color:#3b6470;font-variant-numeric:tabular-nums}.inspector small{font-size:10px;font-weight:400;color:#9aadb2;margin-left:5px}.positive{color:#c87f65!important}.negative{color:#5289b7!important}.note{padding:13px 24px;font-size:10px;line-height:1.9;color:#9aabb1;background:#fbfcfc}.warning{margin:0 23px 17px;padding:12px 14px;color:#a18c5d;background:#fcf8ed;border-radius:5px;font-size:11px;line-height:1.8}.hidden{display:none!important}.table-wrap{overflow:auto}.table-controls{display:flex;align-items:center;gap:15px;padding:1px 23px 17px}.table-controls input[type=search]{padding:9px 12px;width:310px;max-width:100%;border:1px solid var(--line);border-radius:5px;color:#587981;font-size:12px}.table-controls input::placeholder{color:#a2b2b7}.table-controls label{margin-left:auto;color:#91a6ae;font-size:11px;display:flex;align-items:center;gap:6px}.table-controls input[type=checkbox]{accent-color:var(--teal)}table{border-collapse:collapse;width:100%;text-align:left;white-space:nowrap}thead{background:#f8fafa}th{font-size:9px;letter-spacing:.6px;color:#96a8ae;font-weight:600;padding:13px 20px;border-bottom:1px solid var(--line)}td{padding:16px 20px;font-size:11px;color:#8a9ea7;border-bottom:1px solid #edf2f3;line-height:1.5}td strong{display:block;font-size:12px;font-weight:550;color:#52717e}td small{font-size:10px;color:#a2b1b8;display:block;margin-top:4px}.cause{white-space:normal;max-width:320px;min-width:200px;font-size:10px;line-height:1.8}.original-link{display:block;font-weight:550;font-size:11px}.file-hash{font:9px monospace;margin-top:6px;display:block;color:#a9b7be}.footer{display:flex;justify-content:space-between;gap:20px;font-size:10px;color:#a0afb5;margin:5px 0 20px;line-height:1.8}.footer a{color:#7e9b94}.empty{text-align:center;padding:36px 20px;color:#8eaaad;line-height:1.9;font-size:12px}.count{font-size:10px;font-weight:400;border-radius:4px;color:#8fa6ac;background:#f0f5f6;padding:3px 7px;margin-left:6px}.help{background:#fff;border:1px solid var(--line);padding:17px 20px;border-radius:7px;margin-bottom:20px;color:#8b9ea5;font-size:12px;line-height:1.9}.help summary{cursor:pointer;color:#5d8077;font-weight:500}.help code{color:#397c69;background:#f1f6f4;padding:5px 9px;font-size:11px;display:inline-block;max-width:100%;overflow:auto}.base-note{margin:0 0 22px;color:#9daeb4;line-height:1.8;font-size:11px}.error-list{font-size:11px;line-height:1.9;color:#ad9365;padding:0 20px 18px;white-space:pre-line}.intervals-table{max-height:365px;overflow:auto}.intervals-table thead{position:sticky;top:0}.intervals-table td{padding:9px 20px}.intervals-table td,.intervals-table td strong{font-size:11px}.unit-badge{font-size:10px;color:#8fa4ac;margin-left:9px;font-weight:400}a:hover{text-decoration:underline}button:hover{filter:brightness(.97)}
-@media(max-width:850px){.heading{align-items:flex-start;flex-direction:column;gap:16px}h1{font-size:27px}.stats{grid-template-columns:1fr 1fr}.selectors{gap:20px;flex-wrap:wrap}.selectors>div:first-child{width:100%}.sequence{width:100%;flex-basis:100%}.selectors .context{margin:0}.update{align-items:flex-start;flex-wrap:wrap}.update>label{margin:0}.panel-head{align-items:flex-start;flex-direction:column;gap:14px}.series-select{width:100%;max-width:none}.panel-head select{max-width:100%}.table-controls{flex-wrap:wrap}.table-controls label{margin-left:0}.inspector{gap:20px}.inspector>div{padding-right:15px;min-width:100px}.footer{flex-direction:column;gap:6px}header{padding:17px 23px}.header-right{font-size:10px}.intro{font-size:12px}.comparison-meta{gap:9px;font-size:10px}}
-@media(max-width:450px){main{padding:27px 15px}.header-right{display:none}.brand{font-size:22px}.brand small{font-size:8px}.stat{padding:15px}.stat strong{font-size:27px}.stat label{font-size:10px}.actions{width:100%}.actions>a{flex:1;justify-content:center}.panel-head{padding:18px 17px 14px}.comparison-meta{padding:0 17px 15px}.selectors{padding:17px}.inspector{padding:16px 17px;gap:14px}.inspector strong{font-size:16px}.inspector>div{min-width:80px;padding-right:10px}.inspector>div:last-child{border:0}.table-controls{padding:0 17px 17px}.plot-wrap{padding:0 6px}.legend{padding-right:20px}.interval-slider{padding-left:17px;padding-right:17px}.help{font-size:11px}.warning{margin:0 17px 15px}.base-note{font-size:10px}}
-</style></head><body>
-<header><div class="brand"><b>ϟ</b><div>CCO<small>ARCHIVO DE OPERACIÓN · COES</small></div></div><div class="header-right">Datos de fuente oficial · Hora de Perú, UTC−5</div></header>
-<main><div class="heading"><div><div class="eyebrow">01 / BASE DE DATOS</div><h1>El día, programa por programa<span>.</span></h1><p class="intro">Originales Excel, emisiones y series del sistema eléctrico en una base trazable.</p></div><div class="actions"><a class="button secondary" href="manifest.json" download>↓ Catálogo JSON</a><a class="button" href="base_excel.xlsx" download>↓ Base Excel</a></div></div>
-<div class="update"><span>●</span><div><strong>Actualizado: <span id="generated"></span></strong><span> · Cada ejecución del script regenera esta página con el archivo disponible.</span></div><label><input type="checkbox" id="auto" checked>Releer HTML cada 60 s</label></div>
-<section class="stats"><div class="stat"><label>Originales / revisiones</label><strong id="files-count">0</strong><small>Conservados con su huella SHA-256</small></div><div class="stat"><label>Fechas archivadas</label><strong id="days-count">0</strong><small>PDO y reprogramas por jornada</small></div><div class="stat"><label>Columnas de la emisión elegida</label><strong id="series-count">0</strong><small>Despacho, demanda y variables del sistema</small></div><div class="stat"><label>Malla horaria diaria</label><strong>48</strong><small>Se conserva cada ventana publicada</small></div></section>
-<section class="selectors"><div><label class="field-label" for="day">FECHA DE OPERACIÓN</label><select id="day"></select></div><div class="sequence"><span class="field-label">EMISIONES ARCHIVADAS</span><div class="track" id="versions"></div></div><div><span class="status" id="run-status"></span><div class="context" id="checked"></div></div></section>
-<details class="help"><summary>Cómo actualizar la base y esta página</summary><p>Ejecuta el script para consultar las publicaciones y conservar las nuevas emisiones. El HTML se escribe de nuevo al terminar. Puedes recargarlo manualmente o dejar activada su relectura cada 60 segundos. La consulta al COES solo la realiza el script.</p><code>python actualizar_base.py</code><p>Para una fecha concreta: <code>python actualizar_base.py --fecha 2026-11-03</code>. Conserva la carpeta completa para mantener los enlaces a los originales y al Excel consolidado.</p></details>
-<div id="run-errors" class="error-list hidden" role="status"></div>
-<section class="panel"><div class="panel-head"><div><h2>Explorar las series originales <span class="unit-badge" id="plot-unit"></span></h2><p>Selecciona una variable para consultar la curva y su cambio frente al programa anterior.</p></div><select class="series-select" id="series" aria-label="Variable del Excel"></select></div><div class="comparison-meta"><span class="pill" id="pair"></span><span id="publication"></span></div><div id="missing-predecessor" class="warning hidden"></div><div class="legend"><span><i class="old"></i><span id="old-label">Anterior</span></span><span><i></i><span id="new-label">Actual</span></span></div><div class="plot-wrap"><svg id="plot" viewBox="0 0 1000 270" role="img" aria-label="Curvas de la variable seleccionada"></svg></div><div class="interval-slider"><label for="interval">Intervalo</label><input type="range" id="interval" min="0" max="47" value="0"><output id="interval-time"></output></div><div class="inspector"><div><label id="inspector-old">Anterior</label><strong id="old-value">—</strong></div><div><label id="inspector-new">Actual</label><strong id="new-value">—</strong></div><div><label>Variación del intervalo</label><strong id="delta-value">—</strong></div><div><label>Mayor cambio absoluto</label><strong id="peak-value">—</strong></div></div><div class="note">Δ = actual − anterior. Los reprogramas pueden empezar más tarde: no se completan las horas no publicadas. Cada columna conserva su unidad; no se suman totales con sus componentes. Los vacíos no se convierten en cero. El último intervalo se normaliza a 24:00 y conserva el rótulo original 23:59 del COES. La clasificación térmica/hidro requiere un catálogo de equipos y no se infiere aquí.</div></section>
-<section class="panel"><div class="panel-head"><div><h2>Valores por intervalo</h2><p id="source-column">Trazabilidad hasta la celda del Excel.</p></div><button class="button secondary" id="csv">↓ Exportar serie CSV</button></div><div class="intervals-table"><table><thead><tr><th>HORA COMPARATIVA</th><th>ANTERIOR</th><th>ACTUAL</th><th>VARIACIÓN</th><th>CELDA ORIGINAL (ACTUAL)</th></tr></thead><tbody id="interval-body"></tbody></table></div></section>
-<section class="panel"><div class="panel-head"><div><h2>Repositorio de Excel <span class="count" id="archive-count"></span></h2><p>Listado oficial y originales de la fecha seleccionada. Cada revisión se conserva.</p></div><a id="listing-link" class="button secondary hidden" download>↓ Listado COES</a></div><div class="table-controls"><input type="search" id="search" placeholder="Buscar emisión, archivo o motivo…" aria-label="Buscar en el archivo"><label><input type="checkbox" id="revisions">Mostrar revisiones anteriores</label></div><div class="table-wrap"><table><thead><tr><th>EMISIÓN / ARCHIVO</th><th>VIGENTE DESDE</th><th>MOTIVO SEGÚN COES</th><th>LECTURA</th><th>ORIGINAL</th></tr></thead><tbody id="archive-body"></tbody></table></div></section>
-<p class="base-note">Esta primera etapa obtiene y estructura la base Excel. La comparación exploratoria usa columnas del anexo oficial; no equivale al detalle de demanda por barra de los CSV de YUPANA del comparador adjunto.</p>
-<div class="footer"><span>CCO · Base local del COES · Abre este HTML directamente, sin servidor.</span><span>Exportaciones: <a href="base_excel.xlsx">Excel</a> · <a href="archive.sqlite3" download>SQLite</a> · <a href="manifest.json">JSON</a></span></div>
-</main>
-<script id="cco-data" type="application/json">__CCO_DATA__</script>
-<script>
-"use strict";
-const DATA=JSON.parse(document.getElementById('cco-data').textContent),$=id=>document.getElementById(id);
-const current=DATA.versions.filter(v=>v.current),dateSet=new Set([...DATA.runs.map(r=>r.day),...current.map(v=>v.day)]),days=[...dateSet].sort().reverse();
-const state=new URLSearchParams(location.hash.slice(1));let active=null,previous=null,series=null,before=null;
-const number=(n,d=2)=>n==null?'—':new Intl.NumberFormat('es-PE',{maximumFractionDigits:d}).format(n);
-const delta=(n)=>n==null?'—':(n>0?'+':'')+number(n);
-const name=c=>c==='PDO'?'PDO':'REP '+c;
-const stamp=s=>new Date(s).toLocaleString('es-PE',{timeZone:'America/Lima',hour12:false});
-const unit=()=>series?.unit||'';
-function element(tag,text,cls){const e=document.createElement(tag);if(text!=null)e.textContent=text;if(cls)e.className=cls;return e}
-function saveState(){const s=new URLSearchParams({day:$('day').value,code:active?.code||'',field:$('series').value});try{history.replaceState(null,'','#'+s)}catch(_){}}
-function chooseDay(){const d=$('day').value,vs=current.filter(v=>v.day===d);$('versions').replaceChildren();for(const v of vs){const b=element('button',name(v.code),'chip');b.onclick=()=>chooseVersion(v);b.dataset.code=v.code;$('versions').append(b)}const r=DATA.runs.find(r=>r.day===d);$('run-status').textContent=r?.complete?'Consulta completa':'Consulta incompleta';$('run-status').className='status'+(r?.complete?'':' amber');$('checked').textContent=r?'Consultado: '+stamp(r.checked_at):'Sin consulta registrada';const errs=[...(r?.errors||[]),...(r?.normalization_errors||[])];$('run-errors').textContent=errs.map(e=>e.code+': '+e.message).join('\n');$('run-errors').classList.toggle('hidden',!errs.length);$('listing-link').classList.toggle('hidden',!r?.listing_file);if(r?.listing_file)$('listing-link').href=r.listing_file;chooseVersion(vs.find(v=>v.code===state.get('code'))||vs.at(-1)||null);renderArchive()}
-function chooseVersion(v){active=v;previous=v?current.find(x=>x.day===v.day&&x.code===v.previous)||null:null;for(const b of $('versions').children)b.classList.toggle('active',b.dataset.code===v?.code);$('series-count').textContent=v?.series.length||0;const old=$('series').value||state.get('field');$('series').replaceChildren();for(const s of v?.series||[]){const o=element('option',s.name+(s.unit?' · '+s.unit:''));o.value=s.key;$('series').append(o)}const preferred=(v?.series||[]).find(s=>s.key===old)||(v?.series||[]).find(s=>s.role==='demand_total')||v?.series[0];if(preferred)$('series').value=preferred.key;$('pair').textContent=v?(v.previous?name(v.code)+' vs '+name(v.previous):'PDO · programa base'):'Sin archivos';const p=v?.publication;$('publication').textContent=p?.effective_from?'Vigencia desde '+p.effective_from+' · '+p.cause:'';$('old-label').textContent=v?.previous?name(v.previous):'Sin anterior';$('new-label').textContent=v?name(v.code):'Actual';$('inspector-old').textContent=$('old-label').textContent;$('inspector-new').textContent=$('new-label').textContent;const missing=v?.previous&&!previous;$('missing-predecessor').textContent=missing?'Falta '+name(v.previous)+'. La comparación no salta emisiones; solo se muestra la curva actual.':!v?.structured?'No hay series estructuradas para esta emisión. El original se conserva.':'';$('missing-predecessor').classList.toggle('hidden',!missing&&!!v?.structured);chooseSeries()}
-function chooseSeries(){series=active?.series.find(s=>s.key===$('series').value)||null;before=previous?.series.find(s=>s.key===series?.key&&s.unit===series?.unit)||null;if(series&&Number($('interval').value)<series.first_interval_index)$('interval').value=series.first_interval_index;$('plot-unit').textContent=series?.unit||'Unidad no indicada';$('source-column').textContent=series?'Hoja '+series.sheet+' · columna '+series.column+' · código COES '+(series.source_code||'no indicado')+' · '+series.section:'Sin columna seleccionada';drawPlot();renderValues();saveState()}
-function points(s){return (s?.values||[]).filter(n=>typeof n==='number')}
-function drawPlot(){const svg=$('plot');svg.replaceChildren();const values=[...points(series),...points(before)];const ns='http://www.w3.org/2000/svg',add=(tag,attrs,text)=>{const el=document.createElementNS(ns,tag);for(const [k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text!=null)el.textContent=text;svg.append(el);return el};if(!values.length){add('text',{x:500,y:130,'text-anchor':'middle',fill:'#91a4aa','font-size':14},'Sin valores numéricos en esta columna');return}let lo=Math.min(...values),hi=Math.max(...values);const pad=(hi-lo)*.12||Math.max(Math.abs(hi)*.08,1);lo-=pad;hi+=pad;const x=i=>68+i/47*900,y=v=>225-(v-lo)/(hi-lo)*200;for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4,py=y(v);add('line',{x1:68,x2:968,y1:py,y2:py,stroke:'#e8eff0','stroke-dasharray':'3 4'});add('text',{x:58,y:py+4,'text-anchor':'end',fill:'#96aab1','font-size':10},number(v,1))}for(const i of [0,7,15,23,31,39,47])add('text',{x:x(i),y:251,'text-anchor':'middle',fill:'#95a7ad','font-size':10},DATA.times[i]);for(const [s,color,dash]of [[before,'#9caeb8','5 5'],[series,'#168d79','']]){let path='',pen=false;for(let i=0;i<48;i++){const v=s?.values[i];if(v==null){pen=false;continue}path+=(pen?' L ':' M ')+x(i)+' '+y(v);pen=true}if(path)add('path',{d:path,fill:'none',stroke:color,'stroke-width':'2.5','stroke-dasharray':dash,'stroke-linecap':'round'})}const cur=Number($('interval').value);add('line',{x1:x(cur),x2:x(cur),y1:25,y2:225,stroke:'#bed7cf','stroke-width':1})}
-function sourceCell(s,i){return !s||i<(s.first_interval_index||0)?'—':s.column+((s.first_data_row||7)+i-(s.first_interval_index||0))}
-function differences(){return DATA.times.map((_,i)=>series?.values[i]!=null&&before?.values[i]!=null?series.values[i]-before.values[i]:null)}
-function renderValues(){const i=Number($('interval').value),u=unit(),dv=differences();$('interval-time').textContent=DATA.times[i];for(const [id,value]of [['old-value',before?.values[i]],['new-value',series?.values[i]]]){const target=$(id);target.replaceChildren(element('span',number(value)),element('small',value==null?'':u))}const d=dv[i],valid=dv.filter(v=>v!=null),peak=valid.length?valid.reduce((a,b)=>Math.abs(b)>Math.abs(a)?b:a):null;for(const [id,value]of [['delta-value',d],['peak-value',peak]]){const target=$(id);target.replaceChildren(element('span',delta(value)),element('small',value==null?'':u));target.className=value>0?'positive':value<0?'negative':''}$('interval-body').replaceChildren();for(let j=0;j<48;j++){const row=element('tr');for(const text of [DATA.times[j],number(before?.values[j]),series?.texts[j]??number(series?.values[j]),delta(dv[j]),series?sourceCell(series,j):'—'])row.append(element('td',text));row.children[3].className=dv[j]>0?'positive':dv[j]<0?'negative':'';$('interval-body').append(row)}}
-function renderArchive(){const d=$('day').value,q=$('search').value.toLocaleLowerCase(),rev=$('revisions').checked;const rows=DATA.versions.filter(v=>v.day===d&&(rev||v.current)&&[v.code,v.filename,v.publication?.cause].join(' ').toLocaleLowerCase().includes(q));$('archive-count').textContent=rows.length+' archivos';$('archive-body').replaceChildren();for(const v of rows){const row=element('tr'),file=element('td');file.append(element('strong',name(v.code)+(v.current?'':' · revisión anterior')),element('small',v.filename));const time=element('td',v.publication?.effective_from||'Base del día');const cause=element('td',v.publication?.cause||'Programa diario original','cause');const status=element('td');status.append(element('span',v.structured?'Estructurado':'Solo original','status'+(v.structured?'':' amber')),element('small',v.series.length+' columnas · '+v.published_intervals+' horas publicadas'));const link=element('td'),a=element('a','↓ Descargar Excel','original-link');a.href=v.file;a.setAttribute('download',v.filename);link.append(a,element('small',number(v.bytes/1024,0)+' KB'),element('span','SHA-256 '+v.digest.slice(0,12)+'…','file-hash'));row.append(file,time,cause,status,link);$('archive-body').append(row)}if(!rows.length){const row=element('tr'),td=element('td','No hay originales que coincidan con esta selección.','empty');td.colSpan=5;row.append(td);$('archive-body').append(row)}}
-function csv(){if(!series||!active)return;const safe=v=>'"'+String(v??'').replaceAll('"','""')+'"';const rows=[['Fecha','Actual','Anterior','Variable','Unidad','Hora comparativa','Anterior','Actual','Delta','Celda original actual','Publicado en emisión actual']];const ds=differences();for(let i=0;i<48;i++)rows.push([active.day,active.code,active.previous,series.name,series.unit,DATA.times[i],before?.values[i],series.values[i],ds[i],sourceCell(series,i),sourceCell(series,i)!=='—'?'Sí':'No']);const blob=new Blob(['\ufeff'+rows.map(r=>r.map(safe).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='COES_'+active.day+'_'+active.code+'_serie.csv';a.click();URL.revokeObjectURL(a.href)}
-$('generated').textContent=stamp(DATA.generated_at);$('files-count').textContent=DATA.versions.length;$('days-count').textContent=days.length;for(const day of days){const o=element('option',day.split('-').reverse().join('/'));o.value=day;$('day').append(o)}$('day').value=days.includes(state.get('day'))?state.get('day'):days[0]||'';$('day').onchange=()=>{state.delete('code');chooseDay()};$('series').onchange=chooseSeries;$('search').oninput=renderArchive;$('revisions').onchange=renderArchive;$('csv').onclick=csv;$('interval').oninput=()=>{renderValues();drawPlot()};$('plot').onpointermove=e=>{const rect=$('plot').getBoundingClientRect(),vx=(e.clientX-rect.left)/rect.width*1000;$('interval').value=Math.max(0,Math.min(47,Math.round((vx-68)/900*47)));renderValues();drawPlot()};chooseDay();setInterval(()=>{if($('auto').checked)location.reload()},60000);
-</script></body></html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#35112F" />
+    <title>Kallpa · Monitor de operación RDO</title>
+    <style>
+      __CCO_CSS__
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <a href="#" class="brand" id="brand-home"
+          ><img
+            src="data:image/png;base64,__KALLPA_LOGO__"
+            alt="Isotipo Kallpa del informe"
+          /><span>KALLPA<small>OPERACIÓN & MERCADO</small></span></a
+        >
+        <div class="nav-label">RESUMEN EJECUTIVO RDO</div>
+        <nav id="navigation" aria-label="Secciones del informe"></nav>
+        <div class="sidebar-bottom">
+          <div class="source-indicator"><i></i>Fuente oficial · COES</div>
+          <button id="method-button" class="sidebar-help">
+            ⓘ Metodología y fuentes
+          </button>
+          <div class="edition">
+            Centro de control<small>Monitor de reprogramas · v2</small>
+          </div>
+        </div>
+      </aside>
+      <div class="main-shell">
+        <header class="topbar">
+          <span
+            >Centro de control <b>/</b>
+            <strong id="breadcrumb">Resumen ejecutivo</strong></span
+          >
+          <div class="topbar-right">
+            <span>Hora Perú · UTC−5</span
+            ><button
+              id="export-page"
+              class="topbar-export"
+              title="Exportar los datos de la vista"
+            >
+              ↓ Exportar datos</button
+            ><span class="avatar">KG</span>
+          </div>
+        </header>
+        <main>
+          <section class="heading">
+            <div>
+              <div class="eyebrow"><i></i>INTELIGENCIA OPERATIVA</div>
+              <h1 id="page-title">Resumen ejecutivo<span>.</span></h1>
+              <p id="page-description">
+                Cada emisión, una nueva perspectiva de la operación.
+              </p>
+            </div>
+            <div class="heading-actions">
+              <button id="latest-button" class="button secondary">
+                ⇄ Últimos dos publicados</button
+              ><a class="button primary" href="base_excel.xlsx" download
+                >↓ Base Excel</a
+              >
+            </div>
+          </section>
+          <section class="operation-picker">
+            <div class="date-picker">
+              <label class="field-label" for="day">FECHA DE OPERACIÓN</label
+              ><select id="day" aria-label="Fecha de operación"></select>
+            </div>
+            <div class="version-picker">
+              <span class="field-label">SECUENCIA DE PROGRAMAS</span>
+              <div id="versions" class="version-track"></div>
+            </div>
+            <div class="run-meta">
+              <span id="run-status" class="badge success"
+                >Consulta completa</span
+              ><small id="checked"></small>
+            </div>
+          </section>
+          <div class="comparison-strip">
+            <div>
+              <strong id="pair"></strong
+              ><span class="compare-label">Comparación consecutiva</span
+              ><span id="validity"></span>
+            </div>
+            <label
+              ><input id="auto-refresh" type="checkbox" checked />Releer HTML
+              cada 60 s</label
+            >
+          </div>
+          <section class="global-filters" aria-label="Filtros del informe">
+            <label
+              ><span>ALCANCE</span
+              ><select id="scope">
+                <option value="all">A nivel COES</option>
+                <option value="inkia">INKIA</option>
+                <option value="others">Otras empresas</option>
+              </select></label
+            ><label
+              ><span>EMPRESA</span
+              ><select id="company">
+                <option value="">Todas las empresas</option>
+              </select></label
+            ><label
+              ><span>CENTRAL</span
+              ><select id="plant">
+                <option value="">Todas las centrales</option>
+              </select></label
+            ><label
+              ><span>TECNOLOGÍA</span
+              ><select id="technology">
+                <option value="">Todas las tecnologías</option>
+              </select></label
+            ><label
+              ><span>VENTANA DE COMPARACIÓN</span
+              ><select id="period">
+                <option value="common">Intervalos publicados comunes</option>
+                <option value="day">Jornada · datos disponibles</option>
+                <option value="morning">00:00 – 08:00</option>
+                <option value="daytime">08:00 – 16:00</option>
+                <option value="evening">16:00 – 24:00</option>
+              </select></label
+            ><button
+              id="reset-filters"
+              title="Limpiar filtros"
+              class="reset-button"
+            >
+              ↺<span>Limpiar</span>
+            </button>
+          </section>
+          <div id="notice" class="notice hidden" role="status"></div>
+          <div id="coverage-note" class="coverage-note"></div>
+          <div id="content"></div>
+          <footer class="page-footer">
+            <span><i></i>Kallpa · Monitor de operación RDO</span
+            ><span id="footer-update"></span
+            ><a href="manifest.json" download>Catálogo de fuentes ↗</a>
+          </footer>
+        </main>
+      </div>
+    </div>
+    <dialog id="method-dialog">
+      <div class="dialog-header">
+        <span class="eyebrow">TRAZABILIDAD & CÁLCULOS</span
+        ><button id="close-method" aria-label="Cerrar metodología">×</button>
+      </div>
+      <h2>Una lectura clara de la operación</h2>
+      <div id="method-content"></div>
+      <button id="method-ok" class="button primary">Entendido</button>
+    </dialog>
+    <div id="toast" class="toast hidden" role="status"></div>
+    <script id="cco-data" type="application/json">
+      __CCO_DATA__
+    </script>
+    <script>
+      __CHART_JS__;
+    </script>
+    <script>
+      __CCO_JS__;
+    </script>
+  </body>
+</html>

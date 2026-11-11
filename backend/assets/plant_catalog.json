@@ -1,0 +1,1266 @@
+{
+  "source": "Catálogo técnico del PBIX beta aportado por el usuario",
+  "reference_day": "2026-09-01",
+  "plants": [
+    {
+      "source": "SAN GABAN III",
+      "plant": "CH SAN GABÁN III",
+      "company": "HYDRO GLOBAL",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 209.203
+    },
+    {
+      "source": "MANTARO",
+      "plant": "CH MANTARO",
+      "company": "ELECTROPERU",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 678.714
+    },
+    {
+      "source": "RESTITUCION",
+      "plant": "CH RESTITUCION",
+      "company": "ELECTROPERU",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 226.472
+    },
+    {
+      "source": "MACHUPICCHU",
+      "plant": "CH MACHUPICCHU",
+      "company": "EGEMSA",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 168.825
+    },
+    {
+      "source": "ARICOTA 1",
+      "plant": "CH ARICOTA I",
+      "company": "EGESUR",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 22.093
+    },
+    {
+      "source": "ARICOTA 2",
+      "plant": "CH ARICOTA II",
+      "company": "EGESUR",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 10.64364
+    },
+    {
+      "source": "SAN GABAN II",
+      "plant": "CH SAN GABAN II",
+      "company": "SAN GABAN",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 115.728
+    },
+    {
+      "source": "PLATANAL",
+      "plant": "CH EL PLATANAL",
+      "company": "CELEPSA",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 227.09516
+    },
+    {
+      "source": "CHAGLLA GP1",
+      "plant": "PCH CHAGLLA",
+      "company": "EG HUALLAGA",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 6.39
+    },
+    {
+      "source": "CHAGLLA",
+      "plant": "CH CHAGLLA",
+      "company": "EG HUALLAGA",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 470.35
+    },
+    {
+      "source": "LA VIRGEN",
+      "plant": "CH LA VIRGEN",
+      "company": "LA VIRGEN",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 84.003
+    },
+    {
+      "source": "CHIMAY",
+      "plant": "CH CHIMAY",
+      "company": "CHINANGO",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 155.75202
+    },
+    {
+      "source": "YANANGO",
+      "plant": "CH YANANGO",
+      "company": "CHINANGO",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 43.114
+    },
+    {
+      "source": "HUANCHOR",
+      "plant": "CH HUANCHOR",
+      "company": "HUANCHOR",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 19.768
+    },
+    {
+      "source": "STA TERESA",
+      "plant": "CH SANTA TERESA",
+      "company": "INLAND ENERGY",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 90.319
+    },
+    {
+      "source": "YAUPI",
+      "plant": "CH YAUPI",
+      "company": "STATKRAFT",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 113.686
+    },
+    {
+      "source": "MALPASO",
+      "plant": "CH MALPASO",
+      "company": "STATKRAFT",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 48.448
+    },
+    {
+      "source": "CAHUA",
+      "plant": "CH CAHUA",
+      "company": "STATKRAFT",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 45.382
+    },
+    {
+      "source": "GALLITO CIEGO",
+      "plant": "CH GALLITO CIEGO",
+      "company": "STATKRAFT",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 35.28
+    },
+    {
+      "source": "CHEVES",
+      "plant": "CH CHEVES",
+      "company": "STATKRAFT",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 179.6217
+    },
+    {
+      "source": "CHARCANI I,II,III",
+      "plant": "CH CHARCANI 1-3",
+      "company": "EGASA",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 6.8787
+    },
+    {
+      "source": "CHARCANI V",
+      "plant": "CH CHARCANI V",
+      "company": "EGASA",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 146.575
+    },
+    {
+      "source": "HUANZA",
+      "plant": "CH HUANZA",
+      "company": "HUANZA",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 98.316
+    },
+    {
+      "source": "YUNCAN",
+      "plant": "CH YUNCAN",
+      "company": "ENGIE",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 136.69068
+    },
+    {
+      "source": "QUITARACSA",
+      "plant": "CH QUITARACSA",
+      "company": "ENGIE",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 116.9634
+    },
+    {
+      "source": "PARIAC",
+      "plant": "CH PARIAC",
+      "company": "INV. SHAQSHA",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 4.785355
+    },
+    {
+      "source": "HUINCO",
+      "plant": "CH HUINCO",
+      "company": "ORYGEN PERÚ",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 277.9
+    },
+    {
+      "source": "MATUCANA",
+      "plant": "CH MATUCANA",
+      "company": "ORYGEN PERÚ",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 137.02196
+    },
+    {
+      "source": "MOYOPAMPA",
+      "plant": "CH MOYOPAMPA",
+      "company": "ORYGEN PERÚ",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 69.148
+    },
+    {
+      "source": "CALLAHUANCA",
+      "plant": "CH CALLAHUANCA",
+      "company": "ORYGEN PERÚ",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 84.375
+    },
+    {
+      "source": "HUAMPANI",
+      "plant": "CH HUAMPANI",
+      "company": "ORYGEN PERÚ",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 30.85
+    },
+    {
+      "source": "OROYA",
+      "plant": "CH OROYA",
+      "company": "TRANSMISIÓN ANDINA DE GENERACIÓN",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 9.09
+    },
+    {
+      "source": "PACHACHACA",
+      "plant": "CH PACHACHACA",
+      "company": "TRANSMISIÓN ANDINA DE GENERACIÓN",
+      "technology": "Hidroelectrica",
+      "capacity_reference": 9.9491
+    },
+    {
+      "source": "CARHUAQUERO",
+      "plant": "CH CARHUAQUERO",
+      "company": "ORAZUL",
+      "technology": "Hidroelectrica INKIA",
+      "capacity_reference": 94.532
+    },
+    {
+      "source": "CAÑON DEL PATO",
+      "plant": "CH CAÑÓN DEL PATO",
+      "company": "ORAZUL",
+      "technology": "Hidroelectrica INKIA",
+      "capacity_reference": 265.565
+    },
+    {
+      "source": "CERRO DEL AGUILA",
+      "plant": "CH CERRO DEL ÁGUILA",
+      "company": "KALLPA",
+      "technology": "Hidroelectrica INKIA",
+      "capacity_reference": 582.506
+    },
+    {
+      "source": "CERRODELAGUILAG4",
+      "plant": "CH MINICDA",
+      "company": "KALLPA",
+      "technology": "Hidroelectrica INKIA",
+      "capacity_reference": 10.82605
+    },
+    {
+      "source": "KALLPA TG1",
+      "plant": "KALLPA TG1",
+      "company": "KALLPA",
+      "technology": "Térmicas INKIA",
+      "capacity_reference": 182.37954
+    },
+    {
+      "source": "KALLPA TG2",
+      "plant": "KALLPA TG2",
+      "company": "KALLPA",
+      "technology": "Térmicas INKIA",
+      "capacity_reference": 202.65005
+    },
+    {
+      "source": "KALLPA TG3",
+      "plant": "KALLPA TG3",
+      "company": "KALLPA",
+      "technology": "Térmicas INKIA",
+      "capacity_reference": 205.26275
+    },
+    {
+      "source": "KALLPA TV",
+      "plant": "KALLPA TV",
+      "company": "KALLPA",
+      "technology": "Térmicas INKIA",
+      "capacity_reference": 293.61783
+    },
+    {
+      "source": "LFLORES TG1",
+      "plant": "LAS FLORES TG",
+      "company": "KALLPA",
+      "technology": "Térmicas INKIA",
+      "capacity_reference": 211.16728
+    },
+    {
+      "source": "LFLORES TV",
+      "plant": "LAS FLORES TV",
+      "company": "KALLPA",
+      "technology": "Térmicas INKIA",
+      "capacity_reference": 109.03226
+    },
+    {
+      "source": "PE TALARA",
+      "plant": "CE TALARA",
+      "company": "ENERGÍA EOLICA",
+      "technology": "EOLICA",
+      "capacity_reference": 30.86
+    },
+    {
+      "source": "PE CUPISNIQUE",
+      "plant": "CE CUPISNIQUE",
+      "company": "ENERGÍA EOLICA",
+      "technology": "EOLICA",
+      "capacity_reference": 83.15
+    },
+    {
+      "source": "PQEEOLICOMARCONA",
+      "plant": "CE MARCONA",
+      "company": "PARQUE EOLICO MARCONA",
+      "technology": "EOLICA",
+      "capacity_reference": 32.0
+    },
+    {
+      "source": "PQEEOLICO3HERMANAS",
+      "plant": "CE 3 HERMANAS",
+      "company": "3 HERMANAS",
+      "technology": "EOLICA",
+      "capacity_reference": 97.15
+    },
+    {
+      "source": "WAYRAI",
+      "plant": "CE WAYRA I",
+      "company": "ORYGEN PERÚ",
+      "technology": "EOLICA",
+      "capacity_reference": 132.3
+    },
+    {
+      "source": "HUAMBOS",
+      "plant": "CE HUAMBOS",
+      "company": "GR PAINO",
+      "technology": "EOLICA",
+      "capacity_reference": 18.37
+    },
+    {
+      "source": "DUNA",
+      "plant": "CE DUNA",
+      "company": "GR TARUCA",
+      "technology": "EOLICA",
+      "capacity_reference": 18.37
+    },
+    {
+      "source": "CE PUNTA LOMITASBL1",
+      "plant": "CE PUNTA LOMITAS-I",
+      "company": "ENGIE",
+      "technology": "EOLICA",
+      "capacity_reference": 0.0
+    },
+    {
+      "source": "CE PUNTA LOMITASBL2",
+      "plant": "CE PUNTA LOMITAS-II",
+      "company": "ENGIE",
+      "technology": "EOLICA",
+      "capacity_reference": 0.0
+    },
+    {
+      "source": "PTALOMITASEXPBL1",
+      "plant": "CE PUNTA LOMITAS EXP-I",
+      "company": "ENGIE",
+      "technology": "EOLICA",
+      "capacity_reference": 0.0
+    },
+    {
+      "source": "PTALOMITASEXPBL2",
+      "plant": "CE PUNTA LOMITAS EXP-II",
+      "company": "ENGIE",
+      "technology": "EOLICA",
+      "capacity_reference": 0.0
+    },
+    {
+      "source": "PE SAN JUAN",
+      "plant": "CE SAN JUAN DE MARCONA",
+      "company": "ENERGIA RENOVABLE DEL SUR",
+      "technology": "EOLICA",
+      "capacity_reference": 135.7
+    },
+    {
+      "source": "WAYRAEXP",
+      "plant": "CE WAYRA EXTENSIÓN",
+      "company": "ORYGEN PERÚ",
+      "technology": "EOLICA",
+      "capacity_reference": 177.0
+    },
+    {
+      "source": "PARAMONGA",
+      "plant": "CT PARAMONGA",
+      "company": "AIPSA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 16.15043
+    },
+    {
+      "source": "HUAYCOLORO",
+      "plant": "CT HUAYCOLORO",
+      "company": "PETRAMAS",
+      "technology": "OTRAS RER",
+      "capacity_reference": 4.45301
+    },
+    {
+      "source": "LA JOYA",
+      "plant": "CH LA JOYA",
+      "company": "GEPSA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 9.07987
+    },
+    {
+      "source": "STACRUZ12",
+      "plant": "CH STA. CRUZ 1_2",
+      "company": "EGEJUNÍN",
+      "technology": "OTRAS RER",
+      "capacity_reference": 13.138
+    },
+    {
+      "source": "HUASAHUASI",
+      "plant": "CH HUASAHUASI I_II",
+      "company": "EGEJUNÍN",
+      "technology": "OTRAS RER",
+      "capacity_reference": 19.81433
+    },
+    {
+      "source": "RONCADOR",
+      "plant": "CH RONCADOR",
+      "company": "MAJA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 3.68488
+    },
+    {
+      "source": "PURMACANA",
+      "plant": "CH PURMACANA",
+      "company": "ATRIA ENERGÍA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 1.769382
+    },
+    {
+      "source": "NIMPERIAL",
+      "plant": "CH NUEVA IMPERIAL",
+      "company": "HIDRO CAÑETE",
+      "technology": "OTRAS RER",
+      "capacity_reference": 3.973
+    },
+    {
+      "source": "MAPLE",
+      "plant": "CT MAPLE",
+      "company": "AURORA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 21.35927
+    },
+    {
+      "source": "PIZARRAS",
+      "plant": "CH LAS PIZARRAS",
+      "company": "RIO DOBLE",
+      "technology": "OTRAS RER",
+      "capacity_reference": 19.1995
+    },
+    {
+      "source": "POECHOS2",
+      "plant": "CH POECHOS II",
+      "company": "SINERSA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 9.566
+    },
+    {
+      "source": "CANCHAYLLO",
+      "plant": "CH CANCHAYLLO",
+      "company": "EGECSAC",
+      "technology": "OTRAS RER",
+      "capacity_reference": 5.189
+    },
+    {
+      "source": "CHANCAY",
+      "plant": "CH CHANCAY",
+      "company": "SINERSA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 20.296
+    },
+    {
+      "source": "RUCUY",
+      "plant": "CH RUCUY",
+      "company": "SINERSA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 20.27
+    },
+    {
+      "source": "RUNATULLOII",
+      "plant": "CH RUNATULLO II",
+      "company": "EGEJUNÍN",
+      "technology": "OTRAS RER",
+      "capacity_reference": 19.967
+    },
+    {
+      "source": "RUNATULLOIII",
+      "plant": "CH RUNATULLO III",
+      "company": "EGEJUNÍN",
+      "technology": "OTRAS RER",
+      "capacity_reference": 19.966
+    },
+    {
+      "source": "LAGRINGAV",
+      "plant": "CT LA GRINGA V",
+      "company": "PETRAMAS",
+      "technology": "OTRAS RER",
+      "capacity_reference": 2.91728
+    },
+    {
+      "source": "YANAPAMPA",
+      "plant": "CH YANAPAMPA",
+      "company": "ELE YANAPAM",
+      "technology": "OTRAS RER",
+      "capacity_reference": 3.91621
+    },
+    {
+      "source": "POTRERO",
+      "plant": "CH POTRERO",
+      "company": "AGUA AZUL",
+      "technology": "OTRAS RER",
+      "capacity_reference": 20.202
+    },
+    {
+      "source": "CH MARANON",
+      "plant": "CH MARAÑÓN",
+      "company": "CELEPSA RENOVABLES",
+      "technology": "OTRAS RER",
+      "capacity_reference": 19.92
+    },
+    {
+      "source": "CHHER1",
+      "plant": "CH HER 1",
+      "company": "ORYGEN PERÚ",
+      "technology": "OTRAS RER",
+      "capacity_reference": 0.678643
+    },
+    {
+      "source": "CHANGELI",
+      "plant": "CH ÁNGEL I",
+      "company": "GEPSA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 20.05089
+    },
+    {
+      "source": "CHANGELII",
+      "plant": "CH ÁNGEL II",
+      "company": "GEPSA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 19.98717
+    },
+    {
+      "source": "CHANGELIII",
+      "plant": "CH ÁNGEL III",
+      "company": "GEPSA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 20.08406
+    },
+    {
+      "source": "CTB DONA CATALINA",
+      "plant": "CT DOÑA CATALINA",
+      "company": "PETRAMAS",
+      "technology": "OTRAS RER",
+      "capacity_reference": 1.92857
+    },
+    {
+      "source": "EL CARMEN",
+      "plant": "CH EL CARMEN",
+      "company": "GENERACIÓN ANDINA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 8.580499
+    },
+    {
+      "source": "CT CANA BRAVA",
+      "plant": "CT CANA BRAVA",
+      "company": "BIOENERGÍA DEL CHIRA",
+      "technology": "OTRAS RER",
+      "capacity_reference": 11.74524
+    },
+    {
+      "source": "CT SAN JACINTO",
+      "plant": "CT SAN JACINTO",
+      "company": "AGRO SAN JACINTO",
+      "technology": "OTRAS RER",
+      "capacity_reference": 8.32452
+    },
+    {
+      "source": "CH MANTA",
+      "plant": "CH MANTA",
+      "company": "CELARIS ENERGY",
+      "technology": "OTRAS RER",
+      "capacity_reference": 20.76336
+    },
+    {
+      "source": "CTB CALLAO",
+      "plant": "CT BIOMASA CALLAO",
+      "company": "PETRAMAS",
+      "technology": "OTRAS RER",
+      "capacity_reference": 1.95715
+    },
+    {
+      "source": "TUPURI",
+      "plant": "CH PCH TUPURI",
+      "company": "SAN GABAN",
+      "technology": "OTRAS RER",
+      "capacity_reference": 2.19
+    },
+    {
+      "source": "CH HUALLIN",
+      "plant": "CH HUALLÍN",
+      "company": "STA. LUCÍA CHACAS",
+      "technology": "OTRAS RER",
+      "capacity_reference": 3.081
+    },
+    {
+      "source": "CTAGROOLMOS",
+      "plant": "CT AGROLMOS",
+      "company": "AGROLMOS",
+      "technology": "OTRAS RER",
+      "capacity_reference": 14.0
+    },
+    {
+      "source": "CASAGRANDE",
+      "plant": "CT CASA GRANDE",
+      "company": "CASA GRANDE",
+      "technology": "OTRAS RER",
+      "capacity_reference": 25.0
+    },
+    {
+      "source": "CS CARHUAQUERO",
+      "plant": "CS CARHUAQUERO",
+      "company": "KONDU",
+      "technology": "RER INKIA",
+      "capacity_reference": 0.55
+    },
+    {
+      "source": "CS SAN MARTIN",
+      "plant": "CS SAN MARTÍN",
+      "company": "JOYA SOLAR",
+      "technology": "RER INKIA",
+      "capacity_reference": 252.4
+    },
+    {
+      "source": "CSSUNNY",
+      "plant": "CS SUNNY",
+      "company": "KALLPA",
+      "technology": "RER INKIA",
+      "capacity_reference": 204.0
+    },
+    {
+      "source": "CSSUNNYEXPANSION",
+      "plant": "CS SUNNY EXP",
+      "company": "KALLPA",
+      "technology": "RER INKIA",
+      "capacity_reference": 105.0
+    },
+    {
+      "source": "MAJES",
+      "plant": "CS MAJES",
+      "company": "MAJES ARCUS",
+      "technology": "SOLAR",
+      "capacity_reference": 20.0
+    },
+    {
+      "source": "REPARTICION",
+      "plant": "CS REPARTICIÓN",
+      "company": "REPART ARCUS",
+      "technology": "SOLAR",
+      "capacity_reference": 20.0
+    },
+    {
+      "source": "TACNASOLAR",
+      "plant": "CS TACNA",
+      "company": "TACNA SOLAR",
+      "technology": "SOLAR",
+      "capacity_reference": 20.0
+    },
+    {
+      "source": "PANAMERICANASOLAR",
+      "plant": "CS PANAMERI",
+      "company": "PANAMERICANA SOLAR",
+      "technology": "SOLAR",
+      "capacity_reference": 20.0
+    },
+    {
+      "source": "MOQUEGUASOLAR",
+      "plant": "CS MOQUEGUA",
+      "company": "MOQUEGUA SOLAR",
+      "technology": "SOLAR",
+      "capacity_reference": 16.0
+    },
+    {
+      "source": "CS RUBI",
+      "plant": "CS RUBÍ",
+      "company": "ORYGEN PERÚ",
+      "technology": "SOLAR",
+      "capacity_reference": 144.48
+    },
+    {
+      "source": "YARUCAYA",
+      "plant": "CS YARUCAYA",
+      "company": "HUAURA POWER",
+      "technology": "SOLAR",
+      "capacity_reference": 18.148
+    },
+    {
+      "source": "INTIPAMPA",
+      "plant": "CS INTI PAMPA",
+      "company": "ENGIE",
+      "technology": "SOLAR",
+      "capacity_reference": 40.5
+    },
+    {
+      "source": "CSF YARUCAYA",
+      "plant": "CS YARUCAYA",
+      "company": "HUAURA POWER",
+      "technology": "SOLAR",
+      "capacity_reference": 1.295
+    },
+    {
+      "source": "CSCLEMESI",
+      "plant": "CS CLEMESÍ",
+      "company": "ORYGEN PERÚ",
+      "technology": "SOLAR",
+      "capacity_reference": 114.93
+    },
+    {
+      "source": "CS MATARANI",
+      "plant": "CS MATARANI",
+      "company": "GR CORTARRAMA",
+      "technology": "SOLAR",
+      "capacity_reference": 80.0
+    },
+    {
+      "source": "CSCOENERGY",
+      "plant": "CS COENERGY",
+      "company": "COENERGY",
+      "technology": "SOLAR",
+      "capacity_reference": 0.5049
+    },
+    {
+      "source": "CSEXPANSIONINTIPAMPA",
+      "plant": "CS EXPANSIÓN INTIPAMPA",
+      "company": "ENGIE",
+      "technology": "SOLAR",
+      "capacity_reference": 51.7
+    },
+    {
+      "source": "CSWAYRASOLAR",
+      "plant": "CS WAYRA SOLAR",
+      "company": "ORYGEN PERÚ",
+      "technology": "SOLAR",
+      "capacity_reference": 94.22
+    },
+    {
+      "source": "CHILCA1TG1GAS",
+      "plant": "CHILCA1 TG1",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 171.57545
+    },
+    {
+      "source": "CHILCA1TG2GAS",
+      "plant": "CHILCA1 TG2",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 169.78227
+    },
+    {
+      "source": "CHILCA1TG3GAS",
+      "plant": "CHILCA1 TG3",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 202.72209
+    },
+    {
+      "source": "AGETG1GAS",
+      "plant": "AGUAYTÍA TG1",
+      "company": "TERMOSELVA",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 89.51268
+    },
+    {
+      "source": "AGETG2GAS",
+      "plant": "AGUAYTÍA TG2",
+      "company": "TERMOSELVA",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 89.85903
+    },
+    {
+      "source": "MAL2TGN4GAS",
+      "plant": "MALACAS TGN4",
+      "company": "ENEL GENERACIÓN PIURA",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 88.21514
+    },
+    {
+      "source": "VENT3D2",
+      "plant": "VENTANILLA TG3 - D",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Diesel",
+      "capacity_reference": 140.22131
+    },
+    {
+      "source": "VENT4D2",
+      "plant": "VENTANILLA TG4 - D",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Diesel",
+      "capacity_reference": 142.0398
+    },
+    {
+      "source": "VENT3GAS",
+      "plant": "VENTANILLA TG3",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 150.65478
+    },
+    {
+      "source": "VENT4GAS",
+      "plant": "VENTANILLA TG4",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 153.39194
+    },
+    {
+      "source": "INDEPGAS",
+      "plant": "INDEPENDENCIA",
+      "company": "EGESUR",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 23.06068
+    },
+    {
+      "source": "OLLEROSTG1GAS",
+      "plant": "OLLEROS TG1",
+      "company": "TERMOCHILCA",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 197.52409
+    },
+    {
+      "source": "FENIXGT12GAS",
+      "plant": "FENIX TG2",
+      "company": "FENIX POWER",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 178.83735
+    },
+    {
+      "source": "FENIXGT11GAS",
+      "plant": "FENIX TG1",
+      "company": "FENIX POWER",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 177.09419
+    },
+    {
+      "source": "CHILCA2 TG41  GAS",
+      "plant": "CHILCA2 TG41",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 74.21551
+    },
+    {
+      "source": "STA ROSA UTI 6  GAS",
+      "plant": "STA. ROSA UTI6",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 51.40456
+    },
+    {
+      "source": "STA ROSA UTI 5  D2",
+      "plant": "STA. ROSA UTI5 - D",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Diesel",
+      "capacity_reference": 43.76806
+    },
+    {
+      "source": "STA ROSA WEST TG7  D2 CON H2O",
+      "plant": "STA. ROSA TG7 - D",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Diesel",
+      "capacity_reference": 113.27969
+    },
+    {
+      "source": "STA ROSA UTI 6  D2",
+      "plant": "STA. ROSA UTI6 - D",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Diesel",
+      "capacity_reference": 44.87689
+    },
+    {
+      "source": "STA ROSA UTI 5  GAS",
+      "plant": "STA. ROSA UTI5",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 52.41851
+    },
+    {
+      "source": "STA ROSA WEST TG7  GAS CON H2O",
+      "plant": "STA. ROSA TG7",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 118.14735
+    },
+    {
+      "source": "STA ROSA WEST TG7  GAS",
+      "plant": "STA. ROSA TG7",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 108.64304
+    },
+    {
+      "source": "STAROSA TG8 GAS",
+      "plant": "STA. ROSA TG8",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 182.53449
+    },
+    {
+      "source": "FENIX GT12  D2",
+      "plant": "FENIX TG2 - D",
+      "company": "FENIX POWER",
+      "technology": "Termica Diesel",
+      "capacity_reference": 72.06401
+    },
+    {
+      "source": "FENIX GT11  D2",
+      "plant": "FENIX TG1 - D",
+      "company": "FENIX POWER",
+      "technology": "Termica Diesel",
+      "capacity_reference": 119.27389
+    },
+    {
+      "source": "REFTALARA TV1  FXRFG",
+      "plant": "REF. TALARA TV1 & TV2",
+      "company": "GM OPERACIONES",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 48.84852
+    },
+    {
+      "source": "MAL1TG6D2",
+      "plant": "MALACAS TG6 - D",
+      "company": "ENEL GENERACIÓN PIURA",
+      "technology": "Termica Diesel",
+      "capacity_reference": 43.26121
+    },
+    {
+      "source": "MAL1TG6GAS",
+      "plant": "MALACAS TG6",
+      "company": "ENEL GENERACIÓN PIURA",
+      "technology": "Termica Ciclo Abierto",
+      "capacity_reference": 46.87712
+    },
+    {
+      "source": "CHILCA1CC1GAS",
+      "plant": "CHILCA1 1x1 (TG1TV)",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 254.91716
+    },
+    {
+      "source": "CHILCA1CC2GAS",
+      "plant": "CHILCA1 1x1 (TG2TV)",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 250.64348
+    },
+    {
+      "source": "CHILCA1CC3GAS",
+      "plant": "CHILCA1 1x1 (TG3TV)",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 294.58339
+    },
+    {
+      "source": "CHILCA1CC12GAS",
+      "plant": "CHILCA1 2x1 (TG1TG2TV)",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 517.44863
+    },
+    {
+      "source": "CHILCA1CC23GAS",
+      "plant": "CHILCA1 2x1 (TG2TG3TV)",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 559.2072
+    },
+    {
+      "source": "CHILCA1CC13GAS",
+      "plant": "CHILCA1 2x1 (TG1TG3TV)",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 566.32352
+    },
+    {
+      "source": "CHILCA1CC123GAS",
+      "plant": "CHILCA1 3x1",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 819.76597
+    },
+    {
+      "source": "VENTCC3GAS",
+      "plant": "VENTANILLA 1x1 (TG3TV)",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 214.05782
+    },
+    {
+      "source": "VENTCC4GAS",
+      "plant": "VENTANILLA 1x1 (TG4TV)",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 216.46858
+    },
+    {
+      "source": "VENTCC34GAS",
+      "plant": "VENTANILLA 2x1",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 453.72034
+    },
+    {
+      "source": "VENTCC3GASFD",
+      "plant": "VENTANILLA 1x1 (TG3TV)",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 226.43711
+    },
+    {
+      "source": "VENTCC4GASFD",
+      "plant": "VENTANILLA 1x1 (TG4TV)",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 228.51974
+    },
+    {
+      "source": "VENTCC34GASFD",
+      "plant": "VENTANILLA 2x1",
+      "company": "ORYGEN PERÚ",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 477.80227
+    },
+    {
+      "source": "FENIXCCGT12GAS",
+      "plant": "FÉNIX 1X1 (TG2TV)",
+      "company": "FENIX POWER",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 285.39283
+    },
+    {
+      "source": "FENIXCCGT11GAS",
+      "plant": "FÉNIX 1X1 (TG1TV)",
+      "company": "FENIX POWER",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 284.80191
+    },
+    {
+      "source": "FENIXCCGT11GT12GAS",
+      "plant": "FÉNIX 2X1",
+      "company": "FENIX POWER",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 574.20175
+    },
+    {
+      "source": "FENIXCCGT11GT12D2",
+      "plant": "FÉNIX 2X1",
+      "company": "FENIX POWER",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 524.14243
+    },
+    {
+      "source": "CHILCA2 CCOMB TG41  GAS",
+      "plant": "CHILCA2 1x1",
+      "company": "ENGIE",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 110.49702
+    },
+    {
+      "source": "OLLEROS CCOMB TG1  GAS",
+      "plant": "CT OLLEROS 1X1",
+      "company": "TERMOCHILCA",
+      "technology": "Termica Ciclo Combinado",
+      "capacity_reference": 319.03767
+    },
+    {
+      "source": "FENIX CCOMB GT12  D2",
+      "plant": "FÉNIX 1X1 (TG2TV) - D",
+      "company": "FENIX POWER",
+      "technology": "Termica Diesel",
+      "capacity_reference": 262.18709
+    },
+    {
+      "source": "FENIX CCOMB GT11  D2",
+      "plant": "FÉNIX 1X1 (TG1TV) - D",
+      "company": "FENIX POWER",
+      "technology": "Termica Diesel",
+      "capacity_reference": 250.56076
+    },
+    {
+      "source": "RFILO2TG1D2",
+      "plant": "RF ILO TG1",
+      "company": "ENGIE",
+      "technology": "Termica Diesel",
+      "capacity_reference": 164.44227
+    },
+    {
+      "source": "RFILO2TG2D2",
+      "plant": "RF ILO TG2",
+      "company": "ENGIE",
+      "technology": "Termica Diesel",
+      "capacity_reference": 165.47058
+    },
+    {
+      "source": "RFILO2TG3D2",
+      "plant": "RF ILO TG3",
+      "company": "ENGIE",
+      "technology": "Termica Diesel",
+      "capacity_reference": 165.59853
+    },
+    {
+      "source": "SNTV1R500",
+      "plant": "SAN NICOLAS TV1",
+      "company": "SHOUGESA",
+      "technology": "Termica Diesel",
+      "capacity_reference": 16.5241
+    },
+    {
+      "source": "SNTV2R500",
+      "plant": "SAN NICOLAS TV2",
+      "company": "SHOUGESA",
+      "technology": "Termica Diesel",
+      "capacity_reference": 18.56485
+    },
+    {
+      "source": "SHCUMMINS",
+      "plant": "SAN NICOLAS CUM",
+      "company": "SHOUGESA",
+      "technology": "Termica Diesel",
+      "capacity_reference": 1.06127
+    },
+    {
+      "source": "CHILSLZ12R500D2",
+      "plant": "CHILINA SULZER",
+      "company": "EGASA",
+      "technology": "Termica Diesel",
+      "capacity_reference": 10.22284
+    },
+    {
+      "source": "MOLL123D2",
+      "plant": "MOLLENDO G123",
+      "company": "EGASA",
+      "technology": "Termica Diesel",
+      "capacity_reference": 23.88915
+    },
+    {
+      "source": "RECKA TG1  D2",
+      "plant": "RECKA",
+      "company": "CERRO VERDE",
+      "technology": "Termica Diesel",
+      "capacity_reference": 175.92342
+    },
+    {
+      "source": "PTOBRVO TG3  D2",
+      "plant": "PTO. BRAVO TG3",
+      "company": "SAMAY I",
+      "technology": "Termica Diesel",
+      "capacity_reference": 181.33356
+    },
+    {
+      "source": "PTOBRVO TG1  D2",
+      "plant": "PTO. BRAVO TG1",
+      "company": "SAMAY I",
+      "technology": "Termica Diesel",
+      "capacity_reference": 180.55348
+    },
+    {
+      "source": "PTOBRVO TG4  D2",
+      "plant": "PTO. BRAVO TG4",
+      "company": "SAMAY I",
+      "technology": "Termica Diesel",
+      "capacity_reference": 181.02912
+    },
+    {
+      "source": "PTOBRVO TG2  D2",
+      "plant": "PTO. BRAVO TG2",
+      "company": "SAMAY I",
+      "technology": "Termica Diesel",
+      "capacity_reference": 180.52451
+    },
+    {
+      "source": "CTNEPITG43D2",
+      "plant": "NEPI  TG43",
+      "company": "ENGIE",
+      "technology": "Termica Diesel",
+      "capacity_reference": 205.99003
+    },
+    {
+      "source": "CTNEPITG42D2",
+      "plant": "NEPI  TG42",
+      "company": "ENGIE",
+      "technology": "Termica Diesel",
+      "capacity_reference": 206.11549
+    },
+    {
+      "source": "CTNEPITG41D2",
+      "plant": "NEPI  TG41",
+      "company": "ENGIE",
+      "technology": "Termica Diesel",
+      "capacity_reference": 206.49456
+    },
+    {
+      "source": "RF ETEN TG1  D2",
+      "plant": "RF ETEN TG1",
+      "company": "RF ETEN",
+      "technology": "Termica Diesel",
+      "capacity_reference": 213.71525
+    },
+    {
+      "source": "RF ETEN TG2  D2",
+      "plant": "RF ETEN TG2",
+      "company": "RF ETEN",
+      "technology": "Termica Diesel",
+      "capacity_reference": 7.84668
+    },
+    {
+      "source": "RF PTO MALDONADO  D2",
+      "plant": "RF PTO. MALDONADO",
+      "company": "INFRAESTRUCTURA Y ENERGÍA DEL PERU",
+      "technology": "Termica Diesel",
+      "capacity_reference": 17.41583
+    },
+    {
+      "source": "RF PUCALLPA  D2",
+      "plant": "RF PUCALLPA",
+      "company": "INFRAESTRUCTURA Y ENERGÍA DEL PERU",
+      "technology": "Termica Diesel",
+      "capacity_reference": 44.05367
+    },
+    {
+      "source": "CHILINA TG  D2",
+      "plant": "CHILINA TG",
+      "company": "EGASA",
+      "technology": "Termica Diesel",
+      "capacity_reference": 11.41313
+    },
+    {
+      "source": "TUMBES MAK 1  D2",
+      "plant": "MAK 1",
+      "company": "ELECTROPERU",
+      "technology": "Termica Diesel",
+      "capacity_reference": 8.82587
+    },
+    {
+      "source": "TUMBES MAK 2  D2",
+      "plant": "MAK 2",
+      "company": "ELECTROPERU",
+      "technology": "Termica Diesel",
+      "capacity_reference": 8.51669
+    }
+  ]
+}

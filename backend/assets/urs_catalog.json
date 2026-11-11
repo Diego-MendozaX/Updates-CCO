@@ -1,0 +1,99 @@
+{
+  "units": [
+    {
+      "urs": "URS-CHG-001",
+      "name": "C.H. CHAGLLA",
+      "company": "EMPRESA DE GENERACION HUALLAGA"
+    },
+    {
+      "urs": "URS-CHI-001",
+      "name": "C.H. CHIMAY",
+      "company": "CHINANGO S.A.C."
+    },
+    {
+      "urs": "URS-CLP-001",
+      "name": "C.H. PLATANAL",
+      "company": "CELEPSA"
+    },
+    {
+      "urs": "URS-EGN-001",
+      "name": "C.H.CAÑON DEL PATO",
+      "company": "ORAZUL ENERGY PERÚ"
+    },
+    {
+      "urs": "URS-EGN-002",
+      "name": "C.H. CARHUAQUERO",
+      "company": "ORAZUL ENERGY PERÚ"
+    },
+    {
+      "urs": "URS-ENG-001",
+      "name": "C.T. CHILCA UNO",
+      "company": "ENGIE ENERGIA PERU S.A.A."
+    },
+    {
+      "urs": "URS-ENL-001",
+      "name": "C.H. HUINCO",
+      "company": "ORYGEN PERU S.A.A."
+    },
+    {
+      "urs": "URS-ENL-002",
+      "name": "C.H. MATUCANA",
+      "company": "ORYGEN PERU S.A.A."
+    },
+    {
+      "urs": "URS-ENL-004",
+      "name": "C.T. SANTA ROSA 2",
+      "company": "ORYGEN PERU S.A.A."
+    },
+    {
+      "urs": "URS-ENL-005",
+      "name": "C.T. VENTANILLA",
+      "company": "ORYGEN PERU S.A.A."
+    },
+    {
+      "urs": "URS-FNX-001",
+      "name": "C.T. FENIX",
+      "company": "FENIX POWER PERÚ"
+    },
+    {
+      "urs": "URS-KAL-001",
+      "name": "C.T. KALLPA",
+      "company": "KALLPA GENERACION S.A."
+    },
+    {
+      "urs": "URS-KAL-002",
+      "name": "C.T. LASFLORES",
+      "company": "KALLPA GENERACION S.A."
+    },
+    {
+      "urs": "URS-KALL-003",
+      "name": "C.H. CERRO DEL AGUILA",
+      "company": "KALLPA GENERACION S.A."
+    },
+    {
+      "urs": "URS-STK-001",
+      "name": "C.H. YAUPI",
+      "company": "STATKRAFT S.A"
+    },
+    {
+      "urs": "URS-STK-002",
+      "name": "C.H. MALPASO",
+      "company": "STATKRAFT S.A"
+    },
+    {
+      "urs": "URS-STK-003",
+      "name": "C.H. CAHUA",
+      "company": "STATKRAFT S.A"
+    },
+    {
+      "urs": "URS-STK-004",
+      "name": "C.H. CHEVES",
+      "company": "STATKRAFT S.A"
+    },
+    {
+      "urs": "URS-TCH-001",
+      "name": "C.T. OLLEROS",
+      "company": "TERMOCHILCA S.A.C."
+    }
+  ]
+}
