@@ -45,6 +45,21 @@ Para reconstruir el HTML con los archivos ya descargados:
 %run actualizar_base.py --sin-descargar
 ```
 
+### Si faltan pypdf o xlrd en Spyder
+
+`No module named 'pypdf'` impide leer el PDF eléctrico; `No module named 'xlrd'` impide leer intervenciones en XLS. Los Excel de despacho y el HTML pueden haberse generado igualmente. El código 2 de esa ejecución significa que el resultado fue parcial.
+
+En la consola de Spyder imprime el comando para su propio intérprete:
+
+```python
+import sys
+print(f'"{sys.executable}" -m pip install pypdf==6.10.0 xlrd==2.0.2')
+```
+
+Copia **la línea que imprime** y ejecútala en **Anaconda Prompt o CMD**. Después reinicia el kernel de Spyder, abre `actualizar_base.py` y pulsa F5. Ejecuta una actualización normal para leer los anexos que antes fallaron; `--sin-descargar` solo reconstruye lo que ya se había leído.
+
+La entrada actual comprueba los paquetes antes de comenzar y muestra un comando de instalación con las rutas del Python y de `requirements-base.txt`. En Spyder una ejecución incompleta muestra un mensaje claro sin el traceback `SystemExit: 2`; desde terminal conserva el estado de salida 2 para detectar fallos en tareas programadas.
+
 ## Ejecutar desde una terminal
 
 Se verificó con Python 3.12. Instala las cuatro dependencias del flujo estático:
@@ -156,7 +171,7 @@ En el repositorio completo, con `requirements.txt` instalado:
 python -m unittest discover -s tests -v
 ```
 
-La suite reúne 28 pruebas de adquisición, persistencia, comparación, exportación, lectura de anexos y recuperación de fallos. El smoke test del HTML necesita Playwright y Chromium como herramientas de desarrollo:
+La suite reúne 34 pruebas de adquisición, persistencia, comparación, exportación, lectura de anexos, dependencias en Spyder y recuperación de fallos. El smoke test del HTML necesita Playwright y Chromium como herramientas de desarrollo:
 
 ```bash
 python tests/smoke_static.py --base base_coes --chromium /usr/bin/chromium
@@ -167,6 +182,7 @@ Comprueba las 11 secciones, las 18 gráficas del PBIX, filtros, paginación, CSV
 Archivos principales:
 
 - `actualizar_base.py`: entrada para terminal y Spyder.
+- `backend/launcher.py`: comprobación de paquetes e instrucciones para el intérprete activo, antes de descargar.
 - `backend/coes.py`, `excel_base.py`, `store.py`: adquisición y archivo de despacho.
 - `backend/supplements.py`: descubrimiento y lectura de anexos complementarios.
 - `backend/dashboard.py`: clasificación, procedencia y criterios del informe.

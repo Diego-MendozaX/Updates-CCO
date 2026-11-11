@@ -1,7 +1,5 @@
 """Download official Excel files and regenerate a portable HTML snapshot."""
-from backend.pipeline import run
+from backend.launcher import cli
 
 if __name__ == "__main__":
-    result = run()
-    if result:
-        raise SystemExit(result)
+    cli()

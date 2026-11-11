@@ -262,10 +262,11 @@ def main(argv=None):
         lock.unlink(missing_ok=True)
 
 
-def run():
-    result=main()
+def run(argv=None):
+    args=list(sys.argv[1:] if argv is None else argv)
+    result=main(args)
     html=store.DATA/'index.html'
-    if '--no-abrir' not in sys.argv and html.is_file():
+    if '--no-abrir' not in args and html.is_file():
         import webbrowser
         try:
             opened=webbrowser.open(html.resolve().as_uri())
