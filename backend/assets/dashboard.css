@@ -2124,3 +2124,40 @@ dialog h3 {
   color: #786582;
   font-size: 10px;
 }
+
+.catalog-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin: 18px 0;
+  padding: 14px 17px;
+  border: 1px solid #ead7bb;
+  background: #fffaf2;
+  border-radius: 6px;
+  color: #755536;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.catalog-banner strong,
+.catalog-banner span {
+  display: block;
+}
+.catalog-banner .button {
+  flex-shrink: 0;
+}
+.catalog-banner strong {
+  font-size: 12px;
+}
+.panel-controls select {
+  max-width: 100%;
+}
+@media (max-width: 780px) {
+  .catalog-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .catalog-banner .button {
+    align-self: flex-start;
+  }
+}

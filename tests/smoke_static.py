@@ -57,12 +57,21 @@ def main():
             page.on('pageerror', lambda e: errors.append(str(e)))
             page.on('request', lambda r: requests.append(r.url))
             page.goto(url, wait_until='networkidle')
+            expect(page.locator('#refresh-button')).to_be_visible()
+            expect(page.locator('#auto-refresh')).to_have_count(0)
             latest = page.locator('#versions button').last.inner_text()
             expect(page.locator('#pair')).to_contain_text(latest)
             assert page.locator('canvas').count() == 3
             # Demand must not be stacked with generation or the maximum-demand line.
             assert page.evaluate('Chart.getChart(document.querySelector("canvas")).scales.y.max') < 15000
-            page.screenshot(path=str(args.screenshots / 'kallpa-resumen-v2.png'), full_page=True)
+            if page.locator('#day option').count() > 1:
+                latest_day = page.locator('#day').input_value()
+                page.locator('#day').select_option(index=1)
+                historic_day = page.locator('#day').input_value()
+                historic = [v for v in data['versions'] if v['current'] and v['day']==historic_day][-1]
+                expect(page.locator('#coverage-note')).to_contain_text(historic['reference_revision'][:12])
+                page.locator('#day').select_option(latest_day)
+            page.screenshot(path=str(args.screenshots / 'kallpa-resumen-v3.png'), full_page=True)
             nav = page.locator('#navigation button').evaluate_all('(els)=>els.map(e=>e.dataset.page)')
             chart_counts = {}
             for section in nav:
@@ -70,7 +79,7 @@ def main():
                 chart_counts[section] = page.locator('canvas').count()
                 assert page.locator('#content').inner_text().strip()
                 if section in ('inkia', 'hydro', 'maintenance', 'changes'):
-                    page.screenshot(path=str(args.screenshots / f'kallpa-{section}-v2.png'), full_page=True)
+                    page.screenshot(path=str(args.screenshots / f'kallpa-{section}-v3.png'), full_page=True)
             assert sum(chart_counts[k] for k in ('executive','inkia','hydro','thermal','renewable','reserves','maintenance')) == 18
             page.locator('#navigation [data-page="reserves"]').click()
             if page.locator('[data-table="delegations"][data-action="next"]').is_enabled():
@@ -96,6 +105,18 @@ def main():
                 expect(page.locator('.kpi-value').nth(i)).not_to_contain_text('—')
             if page.locator('#reservoir option').count() > 1:
                 page.locator('#reservoir').select_option(index=1)
+            expect(page.locator('#reservoir option')).to_have_count(len(hydro['reservoirs']))
+            page.locator('#hydro-flow-scope').select_option('all')
+            assert page.evaluate('Chart.getChart(document.getElementById("hydro-flow")).data.labels.length') == len(hydro['reference_plants'])
+            page.locator('#reservoir-scope').select_option('others')
+            expected_reservoirs = [r for r in hydro['reservoirs'] if not r['inkia']]
+            expect(page.locator('#reservoir option')).to_have_count(len(expected_reservoirs))
+            selected_reservoir = page.locator('#reservoir').input_value()
+            page.locator('#refresh-button').click()
+            page.wait_for_load_state('networkidle')
+            expect(page.locator('#reservoir-scope')).to_have_value('others')
+            expect(page.locator('#reservoir')).to_have_value(selected_reservoir)
+            expect(page.locator('#hydro-flow-scope')).to_have_value('all')
             page.locator('#navigation [data-page="maintenance"]').click()
             page.locator('#event-search').fill('KALLPA')
             page.wait_for_timeout(300)
@@ -130,7 +151,23 @@ def main():
             assert page.locator('#plant option').count() > 1
             page.locator('#plant').select_option(index=1)
             assert page.locator('canvas').count() == 3
+            selected_plant = page.locator('#plant').input_value()
+            page.locator('#refresh-button').click()
+            page.wait_for_load_state('networkidle')
+            expect(page.locator('#company')).to_have_value('KALLPA')
+            expect(page.locator('#plant')).to_have_value(selected_plant)
             page.locator('#reset-filters').click()
+            page.locator('#navigation [data-page="catalog"]').click()
+            expect(page.locator('#matrix-sources tbody tr')).to_have_count(4)
+            for tab in ('inventory','parameters','history','alerts'):
+                page.locator('#catalog-tab').select_option(tab)
+                assert page.locator('#catalog-table tbody tr').count() > 0
+            page.locator('#catalog-search').fill('PUNTA')
+            page.wait_for_timeout(300)
+            expect(page.locator('#catalog-table')).to_contain_text('PUNTA')
+            with page.expect_download() as matrix_info:
+                page.locator('#matrix-sources a').first.click()
+            assert Path(matrix_info.value.path()).read_bytes().startswith(b'PK')
             page.locator('#navigation [data-page="notes"]').click()
             note = 'Verificación local del monitor Kallpa.'
             page.locator('#notes-text').fill(note)
@@ -147,7 +184,7 @@ def main():
                 page.locator(f'#navigation [data-page="{section}"]').click()
                 assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), section
             page.locator('#navigation [data-page="executive"]').click()
-            page.screenshot(path=str(args.screenshots / 'kallpa-mobile-v2.png'), full_page=True)
+            page.screenshot(path=str(args.screenshots / 'kallpa-mobile-v3.png'), full_page=True)
             page.locator('#method-button').click()
             expect(page.locator('#method-dialog')).to_be_visible()
             page.locator('#method-ok').click()
@@ -158,7 +195,7 @@ def main():
             assert offline.locator('canvas').count() == 3
             assert not errors, errors
             assert not [r for r in requests if r.startswith(('http://', 'https://')) and not r.startswith(url)], requests
-            print(json.dumps({'result': 'PASS', 'pages': len(nav), 'PBIX_charts': 18, 'published_totals_checked': checked, 'charts_by_page': chart_counts, 'javascript_errors': errors, 'mobile_width': 390}, ensure_ascii=False))
+            print(json.dumps({'result': 'PASS', 'pages': len(nav), 'PBIX_charts': 18, 'published_totals_checked': checked, 'reservoirs': len(hydro['reservoirs']), 'hydraulic_references':len(hydro['reference_plants']), 'manual_refresh_preserves_filters':True, 'charts_by_page': chart_counts, 'javascript_errors': errors, 'mobile_width': 390}, ensure_ascii=False))
             browser.close()
     finally:
         server.shutdown()

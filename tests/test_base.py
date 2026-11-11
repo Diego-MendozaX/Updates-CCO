@@ -88,7 +88,9 @@ class BaseTests(unittest.TestCase):
         manifest=json.loads((store.DATA/'manifest.json').read_text())
         self.assertTrue(manifest['runs'][0]['complete'])
         w=load_workbook(store.DATA/'base_excel.xlsx',read_only=True,data_only=True)
-        self.assertEqual(w.sheetnames,['Programas','Publicaciones','Columnas','Datos','Consultas'])
+        self.assertEqual(w.sheetnames[:5],['Programas','Publicaciones','Columnas','Datos','Consultas'])
+        self.assertIn('Catalogo_Matrices',w.sheetnames)
+        self.assertIn('Alertas_Catalogo',w.sheetnames)
         # Rows outside B's publication window have no fictitious Excel cell address.
         rows=w['Datos'].values;header=next(rows);j=header.index('celda_origen')
         b=next(r for r in rows if r[2]=='B')

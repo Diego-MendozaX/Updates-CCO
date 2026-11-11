@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "description": "Correspondencias explícitas con los anexos COES. Los parámetros técnicos proceden de las matrices Excel.",
+  "generation_aliases": {
+    "CHSANGABANIII": "SAN GABAN III",
+    "SANTA TERESA": "STA TERESA",
+    "PCH CHAGLLA": "CHAGLLA GP1",
+    "CHARCANI 123": "CHARCANI I,II,III",
+    "PUN LOMITAS_EXP-BL1": "PTALOMITASEXPBL1",
+    "PUN LOMITAS_EXP-BL2": "PTALOMITASEXPBL2"
+  },
+  "hydrology_groups": {
+    "CARHUAQUERO": ["CARHUAQUERO G1", "CARHUAQUERO G2", "CARHUAQUERO G3"],
+    "CAÑON DEL PATO": ["CANON DEL PATO"],
+    "CERRO DEL AGUILA": [
+      "CERRO DEL AGUILA G1",
+      "CERRO DEL AGUILA G2",
+      "CERRO DEL AGUILA G3"
+    ],
+    "CERRODELAGUILAG4": ["MCH CERRO DEL AGUILA"],
+    "CHAGLLA": ["CHAGLLA G1", "CHAGLLA G2"],
+    "HUINCO": ["HUINCO G1", "HUINCO G2", "HUINCO G3", "HUINCO G4"],
+    "CHIMAY": ["CHIMAY G1", "CHIMAY G2"],
+    "MATUCANA": ["MATUCANA G1", "MATUCANA G2"],
+    "CHEVES": ["CHEVES G1", "CHEVES G2"],
+    "PLATANAL": ["PLATANAL G1", "PLATANAL G2"],
+    "CAHUA": ["CAHUAG1", "CAHUAG2"],
+    "SAN GABAN III": ["CHSANGABANIII"]
+  },
+  "commercial_status": []
+}

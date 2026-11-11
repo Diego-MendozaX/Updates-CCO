@@ -157,6 +157,7 @@ def excel_export(data):
                     rows("Hidrologia_Embalses", day, source["code"], records["reservoirs"], source)
                     rows("Hidrologia_Centrales", day, source["code"], records["plants"], source)
                     rows("Hidrologia_INKIA", day, source["code"], records.get("inkia_plants", []), source)
+                    rows("Hidrologia_Referencias", day, source["code"], records.get("reference_plants", []), source)
                 elif kind == "electrical":
                     rows("Analisis_Electrico", day, source["code"], records["loadings"], source)
                 else:
@@ -172,6 +173,21 @@ def excel_export(data):
             for s in v["series"]:
                 if s["role"] in ("dispatch", "renewables", "cogeneration"):
                     classification.append([v["day"], v["code"], s["key"], s["name"], s["plant"], s["company"], s["technology"], s["category"], s["capacity"], s["classification_basis"], s["generation"]])
+    if data.get("catalog"):
+        catalog = data["catalog"]
+        for sheet, records in [
+            ("Catalogo_Matrices", catalog["references"]["plants"]),
+            ("Catalogo_Hidrologico", catalog["references"]["hydrology"]),
+            ("Catalogo_URS", catalog["references"]["units"]),
+            ("Inventario", catalog["inventory"]),
+            ("Alertas_Catalogo", catalog["alerts"]),
+            ("Historial_Catalogo", catalog["events"]),
+        ]:
+            table = w.create_sheet(sheet)
+            fields = list(dict.fromkeys(k for record in records for k in record))
+            table.append(fields or ["Sin registros"])
+            for record in records:
+                table.append([json.dumps(record.get(k), ensure_ascii=False) if isinstance(record.get(k), (dict, list)) else record.get(k) for k in fields])
     temp = store.DATA / "base_excel.tmp.xlsx"
     w.save(temp)
     os.replace(temp, store.DATA / "base_excel.xlsx")
@@ -184,6 +200,7 @@ def export():
     excel_export(data)
     manifest = {"generated_at": data["generated_at"], "runs": data["runs"], "versions": [{k:v for k,v in r.items() if k != "series"} for r in data["versions"]]}
     manifest["report"] = data["report"]
+    manifest["catalog"] = {k: data["catalog"][k] for k in ("revision", "sources", "alerts", "errors")}
     manifest["annexes"] = {day: {"files": x.get("files", []), "errors": x.get("errors", [])} for day, x in data["supplements"].items()}
     write_atomic(store.DATA / "manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2))
     template = (Path(__file__).parent / "templates" / "base.html").read_text(encoding="utf-8")
@@ -254,10 +271,17 @@ def main(argv=None):
                     print(f"  {report['supplemental_files']} anexos complementarios archivados",flush=True)
                     for e in report.get("supplemental_errors",[]):
                         print(f"  {e['code']}: {e['message']}",file=sys.stderr,flush=True)
-        data = export()
+        try:
+            data = export()
+        except ValueError as error:
+            print(f"No se pudo generar la salida: {error}", file=sys.stderr, flush=True)
+            return 2
+        for error in data["catalog"].get("errors", []):
+            print(f"CATÁLOGO: {error}", file=sys.stderr, flush=True)
         print(f"HTML: {store.DATA / 'index.html'}\nExcel: {store.DATA / 'base_excel.xlsx'}\nSQLite: {store.DATA / 'archive.sqlite3'}", flush=True)
-        print(f"{len(data['versions'])} originales/revisiones conservados. Recarga el HTML para ver el resultado; también se relee cada 60 segundos.")
-        return 2 if any(not r["complete"] for r in reports) else 0
+        print(f"{len(data['versions'])} originales/revisiones conservados. Usa «Refrescar página» en el HTML para ver la actualización.")
+        print(f"Catálogo: {data['catalog']['pending']} avisos para revisar en «Catálogos y alertas».")
+        return 2 if any(not r["complete"] for r in reports) or data["catalog"].get("errors") else 0
     finally:
         lock.unlink(missing_ok=True)
 

@@ -47,7 +47,7 @@
     ],
     [
       "hydro",
-      "Hidrología INKIA",
+      "Hidrología y embalses",
       "water",
       "Caudales, utilización hidráulica y evolución diaria de los embalses.",
     ],
@@ -92,6 +92,12 @@
       "Variaciones",
       "compare",
       "El cambio entre dos emisiones, hasta el equipo y el intervalo.",
+    ],
+    [
+      "catalog",
+      "Catálogos y alertas",
+      "pulse",
+      "Matrices, nuevas unidades, cambios de nombre y revisión de parámetros técnicos.",
     ],
     [
       "archive",
@@ -168,22 +174,32 @@
       ? hash.get("page")
       : "executive",
     follow: hash.get("follow") !== "0",
-    scope: "all",
-    company: "",
-    plant: "",
-    technology: "",
-    period: "common",
-    reservoir: "",
-    urs: "",
+    scope: ["all", "inkia", "others"].includes(hash.get("scope"))
+      ? hash.get("scope")
+      : "all",
+    company: hash.get("company") || "",
+    plant: hash.get("plant") || "",
+    technology: hash.get("technology") || "",
+    period: ["common", "day", "morning", "daytime", "evening"].includes(
+      hash.get("period"),
+    )
+      ? hash.get("period")
+      : "common",
+    reservoir: hash.get("reservoir") || "",
+    urs: hash.get("urs") || "",
     eventView: "maintenance",
     eventCategory: "",
     search: "",
     threshold: 100,
     changeKind: "generation",
-    series: "",
+    series: hash.get("series") || "",
     electricalPage: "",
     tables: {},
     revisions: false,
+    hydroFlowScope: hash.get("hydroFlowScope") || "inkia",
+    reservoirScope: hash.get("reservoirScope") || "all",
+    reservoirCompany: hash.get("reservoirCompany") || "",
+    catalogTab: hash.get("catalogTab") || "alerts",
   };
   let active = null,
     previous = null,
@@ -208,6 +224,18 @@
       code: S.code,
       page: S.page,
       follow: S.follow ? "1" : "0",
+      scope: S.scope,
+      company: S.company,
+      plant: S.plant,
+      technology: S.technology,
+      period: S.period,
+      reservoir: S.reservoir,
+      urs: S.urs,
+      series: S.series,
+      hydroFlowScope: S.hydroFlowScope,
+      reservoirScope: S.reservoirScope,
+      reservoirCompany: S.reservoirCompany,
+      catalogTab: S.catalogTab,
     });
     try {
       history.replaceState(null, "", "#" + p);
@@ -322,7 +350,15 @@
     return [...map];
   }
   function capacity(assets) {
-    if (!assets.length || assets.some((a) => !(a.capacity > 0))) return null;
+    if (
+      !assets.length ||
+      assets.some(
+        (a) =>
+          !(a.capacity > 0) ||
+          a.commercial_status === "fuera_de_operacion_comercial",
+      )
+    )
+      return null;
     const map = new Map();
     for (const a of assets)
       if (a.capacity > 0)
@@ -801,7 +837,7 @@
       e = total(a),
       oldE = total(b);
     return {
-      html: `<section class="stats-grid four">${kpi("Energía INKIA", e, "GWh", previous ? oldE : null, "#A62E78", "Ventana seleccionada", "ϟ", 2)}${kpi("Potencia media", mean, "MW", previous ? oldMean : null, "#682888", "Promedio de los intervalos publicados", "⌁", 1)}${kpi("Potencia de referencia", cap, "MW", null, "#E86820", "Catálogo beta del PBIX", "▥", 1)}${kpi("Uso de potencia de referencia", cap > 0 && mean != null ? (mean / cap) * 100 : null, "%", null, "#3599B8", "Potencia media / potencia de referencia", "◔", 1)}</section><div class="grid two">${panel("inkia-thermal", "Despacho previsto térmico INKIA", "Unidades térmicas · MW", "Cada unidad conserva el nombre técnico del anexo.")}${panel("inkia-hydro", "Despacho previsto hidráulico INKIA", "Centrales hidráulicas · MW", "El comparador conserva las ventanas publicadas de cada emisión.")}${panel("inkia-rer", "Despacho previsto RER INKIA", "Generación solar y otras RER · MW", "Se utilizan los valores del COES; no se fuerzan ceros por horario.")}${panel("inkia-factor", "Potencia y factor por tecnología", "Potencia media, referencia del catálogo y factor de uso", "Referencia beta del PBIX. Si falta potencia para alguna unidad del grupo, no se calcula su factor.")}</div>`,
+      html: `<section class="stats-grid four">${kpi("Energía INKIA", e, "GWh", previous ? oldE : null, "#A62E78", "Ventana seleccionada", "ϟ", 2)}${kpi("Potencia media", mean, "MW", previous ? oldMean : null, "#682888", "Promedio de los intervalos publicados", "⌁", 1)}${kpi("Potencia de referencia", cap, "MW", null, "#E86820", "Capacidad instalada según matrices", "▥", 1)}${kpi("Uso de potencia de referencia", cap > 0 && mean != null ? (mean / cap) * 100 : null, "%", null, "#3599B8", "Potencia media / potencia de referencia", "◔", 1)}</section><div class="grid two">${panel("inkia-thermal", "Despacho previsto térmico INKIA", "Unidades térmicas · MW", "Cada unidad conserva el nombre técnico del anexo.")}${panel("inkia-hydro", "Despacho previsto hidráulico INKIA", "Centrales hidráulicas · MW", "El comparador conserva las ventanas publicadas de cada emisión.")}${panel("inkia-rer", "Despacho previsto RER INKIA", "Generación solar y otras RER · MW", "Se utilizan los valores del COES; no se fuerzan ceros por horario.")}${panel("inkia-factor", "Potencia y factor por tecnología", "Potencia media, referencia del catálogo y factor de uso", "Matrices del usuario. Si falta potencia para alguna unidad del grupo, se advierte y no se calcula su factor.")}</div>`,
       after() {
         dispatch(
           "inkia-thermal",
@@ -827,7 +863,7 @@
       b = viewAssets(previous),
       renew = S.page === "renewable";
     return {
-      html: `<section class="stats-grid four">${kpi("Energía de otras empresas", total(a), "GWh", previous ? total(b) : null, "#A62E78", "Alcance seleccionado", "ϟ", 2)}${kpi("Potencia media", avg(aggregate(a)), "MW", previous ? avg(aggregate(b)) : null, "#682888", "Media del período publicado", "⌁", 1)}${kpi("Centrales seleccionadas", new Set(a.map((s) => s.plant)).size, "", null, "#3599B8", "Catálogo de centrales", "▥", 0)}${kpi("Potencia de referencia", capacity(a), "MW", null, "#E86820", "Referencia técnica del PBIX", "◈", 1)}</section>${panel(renew ? "others-rer" : "others-conventional", renew ? "Despacho previsto eólico, solar y otras RER" : "Despacho previsto de otras empresas", "Generación por central · MW", "Los filtros de empresa, central y tecnología se aplican a esta vista.", "tall")}<div class="grid two">${panel(renew ? "others-rer-factor" : "others-factor", "Potencia y factor de uso por categoría", "Potencia media vs potencia de referencia", "El factor requiere potencia de referencia para todas las unidades del grupo. Un dato faltante se muestra sin factor.", "tall")}${panel(renew ? "others-rer-energy" : "others-energy", "Energía prevista por central", "Ordenada de mayor a menor · GWh", "Las centrales restantes se agrupan explícitamente cuando la selección supera quince.", "tall")}</div>`,
+      html: `<section class="stats-grid four">${kpi("Energía de otras empresas", total(a), "GWh", previous ? total(b) : null, "#A62E78", "Alcance seleccionado", "ϟ", 2)}${kpi("Potencia media", avg(aggregate(a)), "MW", previous ? avg(aggregate(b)) : null, "#682888", "Media del período publicado", "⌁", 1)}${kpi("Centrales seleccionadas", new Set(a.map((s) => s.plant)).size, "", null, "#3599B8", "Catálogo de centrales", "▥", 0)}${kpi("Potencia de referencia", capacity(a), "MW", null, "#E86820", "Referencia técnica de las matrices", "◈", 1)}</section>${panel(renew ? "others-rer" : "others-conventional", renew ? "Despacho previsto eólico, solar y otras RER" : "Despacho previsto de otras empresas", "Generación por central · MW", "Los filtros de empresa, central y tecnología se aplican a esta vista.", "tall")}<div class="grid two">${panel(renew ? "others-rer-factor" : "others-factor", "Potencia y factor de uso por categoría", "Potencia media vs potencia de referencia", "El factor requiere potencia de referencia para todas las unidades del grupo. Un dato faltante se muestra sin factor.", "tall")}${panel(renew ? "others-rer-energy" : "others-energy", "Energía prevista por central", "Ordenada de mayor a menor · GWh", "Las centrales restantes se agrupan explícitamente cuando la selección supera quince.", "tall")}</div>`,
       after() {
         dispatch(renew ? "others-rer" : "others-conventional", a);
         factorChart(renew ? "others-rer-factor" : "others-factor", a);
@@ -837,27 +873,53 @@
     };
   }
   function hydroView() {
-    const d = daily("hydrology"),
-      data = d?.data,
-      plants = data?.inkia_plants || (data?.plants || []).filter((p) => p.inkia),
+    const data = daily("hydrology")?.data,
+      allRef = data?.reference_plants || data?.inkia_plants || [],
       rs = data?.reservoirs || [];
-    const options = rs.filter((r) => r.inkia);
-    const available = options.length ? options : rs;
+    const plants = allRef.filter(
+      (p) =>
+        S.hydroFlowScope === "all" ||
+        (S.hydroFlowScope === "inkia" ? p.inkia : !p.inkia),
+    );
+    const scopedReservoirs = rs.filter(
+      (r) =>
+        S.reservoirScope === "all" ||
+        (S.reservoirScope === "inkia" ? r.inkia : !r.inkia),
+    );
+    const owners = [...new Set(scopedReservoirs.map((r) => r.company))].sort();
+    if (!owners.includes(S.reservoirCompany)) S.reservoirCompany = "";
+    const available = scopedReservoirs
+      .filter((r) => !S.reservoirCompany || r.company === S.reservoirCompany)
+      .sort((a, b) => a.name.localeCompare(b.name));
     if (!available.some((r) => r.name === S.reservoir))
       S.reservoir =
         available.find((r) => norm(r.name).includes("CERRODELAGUILA"))?.name ||
         available[0]?.name ||
         "";
-    const r = rs.find((r) => r.name === S.reservoir);
-    const cqr = plants.find((p) => norm(p.name).includes("CARHUAQUERO")),
-      cdp = plants.find((p) => norm(p.name).includes("CANONDELPATO")),
-      cda = plants.find((p) => norm(p.name).includes("CERRODELAGUILA"));
-    const volumeDelta =
+    const r = available.find((r) => r.name === S.reservoir),
+      cqr = allRef.find((p) => norm(p.name) === "CARHUAQUERO"),
+      cdp = allRef.find((p) => norm(p.name) === "CANONDELPATO"),
+      cda = allRef.find((p) => norm(p.name) === "CERRODELAGUILA");
+    const delta =
       r?.initial > 0 && r?.final != null
         ? ((r.final - r.initial) / r.initial) * 100
         : null;
-    const rowData = available.map((a) => [
-      a.name,
+    const scopeOptions = (value) =>
+      [
+        ["all", "Todas las empresas"],
+        ["inkia", "INKIA"],
+        ["others", "Otras empresas"],
+      ]
+        .map(
+          ([v, t]) =>
+            `<option value="${v}" ${value === v ? "selected" : ""}>${t}</option>`,
+        )
+        .join("");
+    const rows = available.map((a) => [
+      {
+        html: `<button class="text-button" data-reservoir="${h(a.name)}">${h(a.name)}</button><small>${h(a.linked_plant || "Sin central vinculada en la matriz")}</small>`,
+      },
+      a.company,
       fmt(a.initial, 3),
       fmt(a.final, 3),
       {
@@ -866,12 +928,32 @@
       fmt(a.inflow, 2),
     ]);
     return {
-      html: `${sourceBar(["hydrology"], "Hidrología del programa diario")}<section class="stats-grid three">${kpi("Volumen inicial", r?.initial, "Hm³", null, "#3599B8", r?.name || "Selecciona un embalse", "◈", 3)}${kpi("Volumen final", r?.final, "Hm³", null, "#682888", "Extremo diario publicado", "◈", 3)}${kpi("Variación de volumen", volumeDelta, "%", null, "#A62E78", "(Final − inicial) / inicial", "⇄", 2)}</section><section class="stats-grid three">${kpi("Factor hidráulico · CQR", cqr?.factor != null ? cqr.factor * 100 : null, "%", null, "#3599B8", "Qturbinado / Qmáx. de referencia", "≈", 1)}${kpi("Factor hidráulico · CDP", cdp?.factor != null ? cdp.factor * 100 : null, "%", null, "#682888", "Qturbinado / Qmáx. de referencia", "≈", 1)}${kpi("Factor hidráulico · CDA", cda?.factor != null ? cda.factor * 100 : null, "%", null, "#A62E78", "Qturbinado / Qmáx. de referencia", "≈", 1)}</section><div class="grid two">${panel("hydro-flow", "Caudal y factor hidráulico INKIA", "Caudal turbinado y utilización hidráulica de la jornada", "Qmáx. procede del catálogo técnico del PBIX, no de una medición nueva.", "tall")}<section class="panel" data-chart="hydro-volume"><div class="panel-head"><div><h2>Volumen y caudal del embalse</h2><p>Extremos diarios del anexo · Hm³ y m³/s</p></div></div><div class="panel-controls"><label>Embalse <select id="reservoir">${available.map((x) => `<option value="${h(x.name)}" ${x.name === S.reservoir ? "selected" : ""}>${h(x.name)}</option>`).join("")}</select></label></div><div class="chart-box"><canvas id="hydro-volume" role="img" aria-label="Volúmenes inicial y final y caudal diario"></canvas></div><div class="panel-note"><span>El anexo no incluye la curva horaria del PBIX. Se muestran los dos extremos de volumen y el caudal diario, sin interpolación.</span></div></section></div><section class="panel"><div class="panel-head"><div><h2>Balance de los embalses INKIA</h2><p>Valores iniciales, finales y variación reportada para la jornada.</p></div></div><div style="height:16px"></div>${table(["EMBALSE", "INICIAL Hm³", "FINAL Hm³", "Δ Hm³", "ENTRANTE m³/s"], rowData, { id: "hydro-table" })}</section>`,
+      html: `${sourceBar(["hydrology"], "Hidrología diaria · todos los embalses publicados")}<section class="stats-grid three">${kpi("Volumen inicial", r?.initial, "Hm³", null, "#3599B8", r?.name || "Selecciona un embalse", "water", 3)}${kpi("Volumen final", r?.final, "Hm³", null, "#682888", "Extremo diario publicado", "water", 3)}${kpi("Variación de volumen", delta, "%", null, "#A62E78", "(Final − inicial) / inicial", "⇄", 2)}</section><section class="stats-grid three">${kpi("Factor hidráulico · CQR", cqr?.factor != null ? cqr.factor * 100 : null, "%", null, "#3599B8", "Referencia INKIA · Qturbinado / Qmáx.", "≈", 1)}${kpi("Factor hidráulico · CDP", cdp?.factor != null ? cdp.factor * 100 : null, "%", null, "#682888", "Referencia INKIA · Qturbinado / Qmáx.", "≈", 1)}${kpi("Factor hidráulico · CDA", cda?.factor != null ? cda.factor * 100 : null, "%", null, "#A62E78", "Referencia INKIA · Qturbinado / Qmáx.", "≈", 1)}</section><div class="grid two"><section class="panel"><div class="panel-head"><div><h2>Caudal y factor hidráulico por central</h2><p>La vista INKIA reproduce la selección del PBIX; puedes ampliar el alcance.</p></div></div><div class="panel-controls"><label>Centrales <select id="hydro-flow-scope">${scopeOptions(S.hydroFlowScope)}</select></label><span class="legend-note">${plants.length} centrales con referencia y valores del anexo.</span></div><div class="chart-box tall"><canvas id="hydro-flow" role="img" aria-label="Caudal y factor hidráulico por central"></canvas></div><div class="panel-note">El caudal de grupos G1/G2/G3 se suma una vez por central. Qmáx. procede de la matriz hidráulica.</div></section><section class="panel"><div class="panel-head"><div><h2>Volumen y caudal del embalse</h2><p>Extremos diarios · Hm³ y m³/s</p></div></div><div class="panel-controls"><label>Alcance de embalses <select id="reservoir-scope">${scopeOptions(S.reservoirScope)}</select></label><label>Empresa <select id="reservoir-company"><option value="">Todas las empresas</option>${owners.map((x) => `<option ${x === S.reservoirCompany ? "selected" : ""}>${h(x)}</option>`).join("")}</select></label><label>Embalse <select id="reservoir">${available.map((x) => `<option ${x.name === S.reservoir ? "selected" : ""}>${h(x.name)}</option>`).join("")}</select></label></div><div class="chart-box tall"><canvas id="hydro-volume" role="img" aria-label="Volúmenes inicial y final y caudal diario"></canvas></div><div class="panel-note">${available.length} embalses disponibles de ${rs.length} publicados. El anexo tiene extremos diarios, sin curva horaria; no se interpola.</div></section></div><section class="panel"><div class="panel-head"><div><h2>Balance de los embalses <span class="count-pill">${available.length}</span></h2><p>Selecciona un nombre para consultar su gráfica. Incluye las empresas fuera de INKIA.</p></div></div>${table(["EMBALSE / CENTRAL", "EMPRESA", "INICIAL Hm³", "FINAL Hm³", "Δ Hm³", "ENTRANTE m³/s"], rows, { id: "hydro-table", limit: 15 })}</section><section class="panel"><div class="panel-head"><div><h2>Caudales y parámetros de las centrales</h2><p>Valores observados, grupos incluidos y fila de la matriz utilizada.</p></div></div>${table(
+        [
+          "CENTRAL",
+          "EMPRESA",
+          "GRUPOS DEL ANEXO",
+          "QTURB m³/s",
+          "QMÁX m³/s",
+          "FACTOR %",
+          "MATRIZ / FILA",
+        ],
+        plants.map((p) => [
+          p.display || p.name,
+          p.company,
+          p.source_units,
+          fmt(p.turbined, 2),
+          fmt(p.qmax, 2),
+          fmt(p.factor != null ? p.factor * 100 : null, 1),
+          `${p.matrix_file || "—"} · ${p.matrix_row || "—"}`,
+        ]),
+        { id: "hydro-parameters", limit: 15 },
+      )}</section>`,
       after() {
         chart(
           "hydro-flow",
           "bar",
-          plants.map((p) => p.name),
+          plants.map((p) => p.display || p.name),
           [
             {
               label: "Caudal turbinado",
@@ -945,6 +1027,7 @@
           [
             "Fecha",
             "Embalse",
+            "Empresa",
             "Volumen inicial Hm3",
             "Volumen final Hm3",
             "Delta Hm3",
@@ -953,6 +1036,7 @@
           ...available.map((a) => [
             S.day,
             a.name,
+            a.company,
             a.initial,
             a.final,
             subtract(a.final, a.initial),
@@ -1546,6 +1630,138 @@
       },
     };
   }
+  function catalogView() {
+    const c = D.catalog || {
+        alerts: [],
+        inventory: [],
+        events: [],
+        sources: [],
+        references: { plants: [], hydrology: [], units: [] },
+      },
+      query = norm(S.search),
+      match = (r) => !query || norm(JSON.stringify(r)).includes(query);
+    const tabs = [
+      ["alerts", "Avisos y parámetros pendientes"],
+      ["inventory", "Inventario observado"],
+      ["parameters", "Parámetros de las matrices"],
+      ["history", "Historial de cambios"],
+    ];
+    const value = (x) =>
+      x == null ? "—" : typeof x === "object" ? JSON.stringify(x) : String(x);
+    let headers, rows, exportData;
+    if (S.catalogTab === "inventory") {
+      headers = [
+        "TIPO / CÓDIGO",
+        "NOMBRE",
+        "EMPRESA",
+        "TECNOLOGÍA",
+        "POTENCIA REF. MW",
+        "ESTADO",
+        "PRIMERA / ÚLTIMA APARICIÓN",
+      ];
+      const records = c.inventory.filter(match);
+      rows = records.map((r) => [
+        r.kind + " · " + (r.code || "—"),
+        r.display || r.name,
+        r.company || "—",
+        r.technology || "—",
+        fmt(r.capacity_reference, 2),
+        r.status,
+        r.first_seen + " / " + r.last_seen,
+      ]);
+      exportData = records;
+    } else if (S.catalogTab === "parameters") {
+      headers = [
+        "MATRIZ / FILA",
+        "REFERENCIA",
+        "NOMBRE",
+        "EMPRESA",
+        "TECNOLOGÍA / Q MÁX.",
+        "POTENCIA REF. MW",
+      ];
+      const records = [
+        ...(c.references.plants || []).map((r) => ({
+          ...r,
+          kind: "Generación",
+        })),
+        ...(c.references.hydrology || []).map((r) => ({
+          ...r,
+          kind: "Hidrología",
+          source: r["Central_Nombre origen en Consolidado_RDO"],
+          plant: r.Nombre_Central_Dashboard,
+          company: r.Nombre_Empresa_Dashboard,
+          technology: r.Tecnologia,
+          capacity_reference: r["Potencia Efectiva (MW)"],
+        })),
+        ...(c.references.units || []).map((r) => ({
+          ...r,
+          kind: "URS",
+          source: r.urs,
+          plant: r.name,
+        })),
+      ].filter(match);
+      rows = records.map((r) => [
+        r.matrix_file + " · " + r.matrix_row,
+        r.source,
+        r.plant,
+        r.company,
+        r.kind === "Hidrología"
+          ? "Qmáx. " + fmt(r["Qturb max"], 3) + " m³/s"
+          : r.technology || "URS",
+        fmt(r.capacity_reference, 3),
+      ]);
+      exportData = records;
+    } else {
+      headers = [
+        "FECHA / TIPO",
+        "UNIDAD / PARÁMETRO",
+        "AVISO",
+        "ACCIÓN / CRITERIO",
+        "APLICACIÓN",
+      ];
+      const records = (S.catalogTab === "history" ? c.events : c.alerts)
+        .filter(match)
+        .slice()
+        .sort((a, b) => (b.day || "").localeCompare(a.day || ""));
+      rows = records.map((r) => [
+        r.day + " · " + r.kind,
+        r.asset,
+        { html: `<div class="text-wrap">${h(r.message)}</div>` },
+        {
+          html: `<div class="text-wrap">${h(r.action)}${r.details ? `<small>${h(value(r.details))}</small>` : ""}</div>`,
+        },
+        {
+          html: badge(
+            r.automatic ? "Automática" : "Revisión",
+            r.severity === "warning" ? "warn" : "info",
+          ),
+        },
+      ]);
+      exportData = records;
+    }
+    return {
+      html: `<div class="flow-banner"><span><b>El catálogo se actualiza en cada ejecución.</b> Las unidades nuevas se incorporan al inventario. Un nombre solo se vincula automáticamente cuando coinciden código COES, empresa y referencia inequívoca. Una ausencia o potencia cero no confirman retiro comercial.</span><a class="button secondary small" href="catalogos/revision_actual.json" download>↓ Catálogo y avisos JSON</a></div><section class="stats-grid four">${kpi("Referencias de generación", c.references.plants?.length || 0, "", null, "#A62E78", "Matrices del usuario", "▥", 0)}${kpi("Referencias hidráulicas", c.references.hydrology?.length || 0, "", null, "#3599B8", "Potencia, eficiencia y Qmáx.", "water", 0)}${kpi("URS de la matriz", c.references.units?.length || 0, "", null, "#682888", "Unidad / central y empresa", "▥", 0)}${kpi("Avisos para revisar", c.pending || 0, "", null, "#E86820", "No se inventan parámetros faltantes", "↗", 0)}</section><section class="panel"><div class="panel-head"><div><h2>Fuentes editables del catálogo actual</h2><p>Actualiza estos Excel en catalogos/fuentes y ejecuta actualizar_base.py. Las gráficas históricas usan la revisión vigente para cada fecha.</p></div><span class="badge info">Revisión ${h(c.revision?.slice(0, 12) || "—")}</span></div>${table(
+        ["ARCHIVO / HOJA", "TIPO", "FILAS", "SHA-256", "ORIGINAL"],
+        c.sources.map((r) => [
+          r.file + " · " + r.sheet,
+          r.kind,
+          r.rows,
+          r.sha256.slice(0, 12) + "…",
+          {
+            html: `<a href="${h(encodeURI("catalogos/fuentes/" + r.sha256 + "/" + r.file))}" download>↓ Matriz original</a>`,
+          },
+        ]),
+        { id: "matrix-sources" },
+      )}</section><section class="panel"><div class="panel-head"><div><h2>Revisión de referencias y cambios</h2><p>Inventario de la última fecha archivada: ${h(c.latest_operation_day || "—")}. Las apariciones no determinan fechas de entrada o salida comercial.</p></div></div><div class="panel-controls"><label>Vista <select id="catalog-tab">${tabs.map(([v, t]) => `<option value="${v}" ${S.catalogTab === v ? "selected" : ""}>${t}</option>`).join("")}</select></label><input id="catalog-search" class="search" type="search" value="${h(S.search)}" placeholder="Buscar unidad, matriz o aviso…" aria-label="Buscar catálogo"></div>${table(headers, rows, { id: "catalog-table", limit: 15 })}</section>`,
+      after() {
+        const keys = [...new Set(exportData.flatMap((r) => Object.keys(r)))];
+        exportRows = [
+          keys,
+          ...exportData.map((r) => keys.map((k) => value(r[k]))),
+        ];
+      },
+    };
+  }
   const VIEWS = {
     executive,
     inkia: inkiaView,
@@ -1558,6 +1774,7 @@
     notes: notesView,
     changes: changesView,
     archive: archiveView,
+    catalog: catalogView,
   };
   function filterAvailability() {
     const allowed = {
@@ -1567,6 +1784,7 @@
       electrical: ["period"],
       notes: [],
       archive: [],
+      catalog: [],
     }[S.page] || ["scope", "company", "plant", "technology", "period"];
     for (const id of ["scope", "company", "plant", "technology", "period"]) {
       const e = $(id);
@@ -1667,6 +1885,16 @@
       );
     $("notice").textContent = notices.join("\n");
     $("notice").classList.toggle("hidden", !notices.length);
+    const catalog = D.catalog,
+      pending = catalog?.pending || 0,
+      catalogErrors = catalog?.errors || [];
+    $("catalog-banner").classList.toggle(
+      "hidden",
+      !pending && !catalogErrors.length,
+    );
+    $("catalog-banner").innerHTML =
+      `<div><strong>${pending} avisos de catálogo para revisar</strong><span>Las unidades nuevas se incorporan; los parámetros no confirmados se señalan.${catalogErrors.length ? " " + h(catalogErrors.join(" ")) : ""}</span></div><button class="button secondary small" data-go="catalog">Ver catálogos y alertas ↗</button>`;
+
     const info = NAV.find((n) => n[0] === S.page);
     $("breadcrumb").textContent = info[1];
     $("page-title").innerHTML = h(info[1]) + "<span>.</span>";
@@ -1675,7 +1903,7 @@
       b.classList.toggle("active", b.dataset.page === S.page);
     const range = idx();
     $("coverage-note").innerHTML =
-      `<span>${active ? `${h(title(S.code))} · ${active.published_intervals} posiciones publicadas` : "Sin datos"}</span><i class="dot"></i><span>Ventana ${D.times[range[0]] || "—"}–${D.times[range.at(-1)] || "—"}</span><i class="dot"></i><span>Clasificación: ${active?.catalog_coverage?.classified || 0}/${active?.catalog_coverage?.total || 0} unidades clasificadas · referencia ${h(D.report?.catalog_reference_day || "PBIX")}</span>${S.follow ? '<i class="dot"></i><b>Siguiendo la última emisión</b>' : ""}`;
+      `<span>${active ? `${h(title(S.code))} · ${active.published_intervals} posiciones publicadas` : "Sin datos"}</span><i class="dot"></i><span>Ventana ${D.times[range[0]] || "—"}–${D.times[range.at(-1)] || "—"}</span><i class="dot"></i><span>Clasificación: ${active?.catalog_coverage?.classified || 0}/${active?.catalog_coverage?.total || 0} unidades clasificadas · referencia ${h((active?.reference_revision || D.catalog?.revision || "—").slice(0, 12))}</span>${S.follow ? '<i class="dot"></i><b>Siguiendo la última emisión</b>' : ""}`;
     if (!active) {
       $("content").innerHTML =
         `<section class="panel">${missing("Todavía no hay programas para esta fecha", "Ejecuta actualizar_base.py para consultar el COES y regenerar este HTML.")}</section>`;
@@ -1689,6 +1917,10 @@
     persist();
   }
   function clearFilters() {
+    S.hydroFlowScope = "inkia";
+    S.reservoirScope = "all";
+    S.reservoirCompany = "";
+    S.reservoir = "";
     S.scope = "all";
     S.company = "";
     S.plant = "";
@@ -1717,13 +1949,17 @@
     )
     .join("");
   $("method-content").innerHTML =
-    `<p>Se revisaron <strong>9 páginas, 28 tablas y 42 medidas</strong> del PBIX aportado. La identidad visual utiliza su isotipo y su tema magenta. Los datos operativos proceden exclusivamente de las fuentes oficiales de la fecha elegida.</p><h3>Comparación consecutiva</h3><p>PDO → A → B → C → … La ventana común limita los cálculos a las horas publicadas en ambos programas. «Últimos dos publicados» vuelve a seguir automáticamente la emisión más reciente después de regenerar el HTML.</p><h3>Criterios de cálculo y adaptaciones</h3><ul>${(D.report?.methodology || []).map((t) => `<li>${h(t)}</li>`).join("")}</ul><h3>Qué requiere cada sección</h3><p>Despacho y CMg: anexo de operación. Hidrología: anexo 2 diario. RPF: anexos 8A/8B. RSF: anexo 6 o RS_Reprog específico. Intervenciones y análisis eléctrico: anexos 1 y 2 del PDI. Los apuntes se guardan en este navegador.</p><p>Las curvas no incluyen las cifras históricas del PBIX como si fueran datos de hoy. La capacidad del catálogo se identifica como referencia beta; los vacíos de las fuentes se conservan.</p>`;
+    `<p>Se revisaron <strong>9 páginas, 28 tablas y 42 medidas</strong> del PBIX aportado. La identidad visual utiliza su isotipo y su tema magenta. Los datos operativos proceden exclusivamente de las fuentes oficiales de la fecha elegida.</p><h3>Comparación consecutiva</h3><p>PDO → A → B → C → … La ventana común limita los cálculos a las horas publicadas en ambos programas. «Últimos dos publicados» vuelve a seguir automáticamente la emisión más reciente después de regenerar el HTML.</p><h3>Criterios de cálculo y adaptaciones</h3><ul>${(D.report?.methodology || []).map((t) => `<li>${h(t)}</li>`).join("")}</ul><h3>Qué requiere cada sección</h3><p>Despacho y CMg: anexo de operación. Hidrología: anexo 2 diario. RPF: anexos 8A/8B. RSF: anexo 6 o RS_Reprog específico. Intervenciones y análisis eléctrico: anexos 1 y 2 del PDI. Los apuntes se guardan en este navegador.</p><p>Las curvas no incluyen las cifras históricas del PBIX como si fueran datos de hoy. Las capacidades proceden de las matrices editables; los cambios conservan su revisión y los vacíos de las fuentes permanecen sin rellenar.</p>`;
   $("method-button").onclick = () => $("method-dialog").showModal();
   $("close-method").onclick = () => $("method-dialog").close();
   $("method-ok").onclick = () => $("method-dialog").close();
   $("brand-home").onclick = (e) => {
     e.preventDefault();
     go("executive");
+  };
+  $("refresh-button").onclick = () => {
+    persist();
+    location.reload();
   };
   $("latest-button").onclick = () => {
     S.follow = true;
@@ -1776,6 +2012,11 @@
       render();
       return;
     }
+    if (b.dataset.reservoir) {
+      S.reservoir = b.dataset.reservoir;
+      render();
+      return;
+    }
     if (b.dataset.series) {
       S.series = b.dataset.series;
       render();
@@ -1812,6 +2053,10 @@
     const id = e.target.id,
       keys = {
         reservoir: "reservoir",
+        "hydro-flow-scope": "hydroFlowScope",
+        "reservoir-scope": "reservoirScope",
+        "reservoir-company": "reservoirCompany",
+        "catalog-tab": "catalogTab",
         urs: "urs",
         "event-view": "eventView",
         "event-category": "eventCategory",
@@ -1868,6 +2113,7 @@
         "electrical-search",
         "change-search",
         "archive-search",
+        "catalog-search",
       ].includes(e.target.id)
     ) {
       const id = e.target.id,
@@ -1887,7 +2133,4 @@
     }
   });
   render();
-  setInterval(() => {
-    if ($("auto-refresh").checked) location.reload();
-  }, 60000);
 })();

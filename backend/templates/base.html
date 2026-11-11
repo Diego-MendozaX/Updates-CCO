@@ -26,7 +26,7 @@
             ⓘ Metodología y fuentes
           </button>
           <div class="edition">
-            Centro de control<small>Monitor de reprogramas · v2</small>
+            Centro de control<small>Monitor de reprogramas · v3</small>
           </div>
         </div>
       </aside>
@@ -85,10 +85,13 @@
               ><span class="compare-label">Comparación consecutiva</span
               ><span id="validity"></span>
             </div>
-            <label
-              ><input id="auto-refresh" type="checkbox" checked />Releer HTML
-              cada 60 s</label
+            <button
+              id="refresh-button"
+              class="button secondary small"
+              title="Releer el HTML generado por la última ejecución del script"
             >
+              ↻ Refrescar página
+            </button>
           </div>
           <section class="global-filters" aria-label="Filtros del informe">
             <label
@@ -131,6 +134,11 @@
             </button>
           </section>
           <div id="notice" class="notice hidden" role="status"></div>
+          <div
+            id="catalog-banner"
+            class="catalog-banner hidden"
+            role="status"
+          ></div>
           <div id="coverage-note" class="coverage-note"></div>
           <div id="content"></div>
           <footer class="page-footer">
